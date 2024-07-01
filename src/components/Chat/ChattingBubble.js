@@ -147,54 +147,38 @@ const ChattingBubble = ({
   }, [plan, isCalender]);
 
   const handleSave = async (selectedColor, title, startDate, endDate, notificationInterval) => {
-    const colors = [
-      "#ff4d6d",
-      "#ffb563",
-      "#ffe66d",
-      "#9ef01a",
-      "#72efdd",
-      "#4cc9f0",
-      "#48bfe3",
-      "#3a86ff",
-      "#c77dff",
-      "#ffc6ff",
-      "#ffcfd2",
-      "#fde4cf",
-      "#fbf8cc",
-      "#b9fbc0",
-      "#98f5e1",
-      "#8eecf5",
-      "#90dbf4",
-      "#a3c4f3",
-      "#cfbaf0",
-      "#f1c0e8",
-    ];
-
-    const getColorIndexByHashCode = (hashCode, colors) => {
-      const index = colors.indexOf(hashCode);
-      return index !== -1 ? index : 3; // 기본 색상 인덱스를 3으로 설정
-    };
-
-    console.log(selectedColor);
-    const s_color = getColorIndexByHashCode(selectedColor, colors);
     setScolor(selectedColor);
     const notification = notificationInterval !== null ? notificationInterval : 0;
+
+    // Parse startDate and endDate
+    const s_year = startDate.getFullYear();
+    const s_month = startDate.getMonth() + 1; 
+    const s_day = startDate.getDate();
+    const s_hour = startDate.getHours();
+    const s_minute = startDate.getMinutes();
+
+    const f_year = endDate.getFullYear();
+    const f_month = endDate.getMonth() + 1;
+    const f_day = endDate.getDate();
+    const f_hour = endDate.getHours();
+    const f_minute = endDate.getMinutes();
+
     try {
       const response = await CreatePlanRequest(
         id,
         title,
-        plan.s_year,
-        plan.s_month,
-        plan.s_day,
-        plan.s_hour,
-        plan.s_minute,
-        plan.f_year,
-        plan.f_month,
-        plan.f_day,
-        plan.f_hour,
-        plan.f_minute,
+        s_year,
+        s_month,
+        s_day,
+        s_hour,
+        s_minute,
+        f_year,
+        f_month,
+        f_day,
+        f_hour,
+        f_minute,
         notification,
-        s_color,
+        selectedColor,
       );
 
       if (response.data === "success") {
