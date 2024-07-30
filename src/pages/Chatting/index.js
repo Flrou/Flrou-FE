@@ -120,7 +120,7 @@ const Index = () => {
         reply = await ChatRequest(id, message, 0, false);
       }
 
-      let replyText = reply.response || reply.message; // response, message 응답 렌더링
+      let replyText = reply.response || reply;
       const replyMessage = { text: replyText, isMine: false };
 
       if (isCalender) {
