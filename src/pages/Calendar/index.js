@@ -247,7 +247,6 @@ const Calendar = () => {
             }}
           />
         </StyledCalendarWrapper>
-      </Container>
       <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
         <DetailContainer style={{ marginBottom: isMobile ? "50px" : 0 }}>
           {filteredSchedules.length > 0 && (
@@ -294,6 +293,7 @@ const Calendar = () => {
         </>
       )}
       {isMobile && <BottomBar />}
+      </Container>
     </>
   );
 };

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 80%;
+  /* width: 100vw; */
+  height: 100%;
   padding: 0 4vw;
   box-sizing: border-box;
 `;
@@ -300,6 +300,7 @@ export const StyledScheduleDetail = styled.div`
   font-size: 18px;
   color: #2c2c2c;
   padding: 10px;
+  cursor: pointer;
 
   img {
     width: 40px;
