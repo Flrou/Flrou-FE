@@ -4,13 +4,15 @@ import PropTypes from "prop-types";
 
 import SendButton from "../../assets/send_button.svg";
 const InputContainer = styled.div`
-  position: relative;
   display: flex; /* 내부 요소들을 수평으로 정렬하기 위해 추가 */
+  justify-content: center;
+  align-items: center;
+  height: 6vh;
 `;
 
 const StyledInput = styled.input`
   width: calc(100% - 60px);
-  height: 6vh;
+  height: 100%;
   border-radius: 15px;
   border: 4px solid #83b5ff;
   background: #fff;
@@ -26,24 +28,27 @@ const StyledInput = styled.input`
   outline: none;
 
   @media screen and (max-width: 768px) {
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
   }
 `;
 
 const SendIcon = styled.img`
-  display: flex;
-  align-items: center;
-  margin-bottom: 100px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* margin-bottom: 100px; */
   margin-left: 10px;
   width: 3vw;
-  height: 6vh;
+  height: 100%;
+
+  cursor: pointer;
 
   &:hover {
     content: auto;
+    transform: scale(103%);
   }
   @media screen and (max-width: 768px) {
     width: 30px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
   }
 `;
 

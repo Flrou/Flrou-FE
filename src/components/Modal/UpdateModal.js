@@ -52,8 +52,8 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
-    alignItems: isPopup ? "center" : "",
-    justifyContent: isPopup ? "center" : "",
+    // alignItems: isPopup ? "center" : "",
+    // justifyContent: isPopup ? "center" : "",
     borderRadius: "10px",
     background: "#fff",
     zIndex: 999,
@@ -64,7 +64,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     left: isPopup ? "50%" : "0%",
     transform: isPopup ? "translate(-50%, -50%)" : "-",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    padding: "10px",
+    padding: "20px",
     gap: "10px",
   };
 
@@ -76,7 +76,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
     padding: "10px 20px",
     cursor: "pointer",
-    marginTop: "10px",
+    // marginTop: "10px",
   };
 
   const saveButtonStyle = {
@@ -104,7 +104,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     ...buttonStyle,
     fontSize: "15px",
     fontWeight: "500",
-    marginBottom: "0px",
+    // marginBottom: "0px",
     padding: "10px",
     width: "100%",
     boxSizing: "border-box",
@@ -116,6 +116,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   const ColorContainer = {
     ...buttonStyle,
     marginBottom: "0px",
+    paddingRight: "4px"
   };
 
   const colorButtonStyle = (color) => ({
@@ -142,8 +143,8 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     // 해시코드가 배열에 포함되어 있는지 확인
     const index = colors.indexOf(hashCode);
 
-    // 포함되어 있다면 인덱스 반환, 아니면 -1 반환
-    return index !== -1 ? index : -1;
+    // 포함되어 있다면 인덱스 반환, 아니면 0 (default color) 반환
+    return index !== -1 ? index : 0;
   };
 
   const handleSave = () => {
@@ -160,12 +161,12 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   return (
     <div style={containerStyle}>
       {isPopup && <h2 style={{ color: "#708FFE" }}>Update</h2>}
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <p style={{ marginRight: "20px", marginBottom: "0", width: "100px" }}>일정명:</p>
+      <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
+        <p style={{ /*marginRight: "20px", marginBottom: "0",*/ width: "40%" }}>일정명:</p>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={TitleContainer} placeholder="일정명" />
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <p style={{ marginRight: "20px", marginBottom: "0", width: "100px" }}>시작 일시:</p>
+      <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
+        <p style={{ /*marginRight: "20px", marginBottom: "0",*/ width: "30%" }}>시작 일시:</p>
         <DatePicker
           selected={selectedStartDate}
           onChange={(date) => setSelectedStartDate(date)}
@@ -177,8 +178,8 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
           style={{ marginBottom: "10px", flex: "1" }}
         />
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <p style={{ marginRight: "20px", marginBottom: "0", width: "100px" }}>종료 일시:</p>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <p style={{ /*marginRight: "20px", marginBottom: "0",*/ width: "30%" }}>종료 일시:</p>
         <DatePicker
           selected={selectedEndDate}
           onChange={(date) => setSelectedEndDate(date)}
@@ -191,12 +192,12 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
           style={{ marginBottom: "10px", flex: "1" }}
         />
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <p style={{ marginRight: "20px", marginBottom: "0", width: "100px" }}>색상명:</p>
-        <div style={{ display: "inline-block", position: "relative", textAlign: "left" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <p style={{ /*marginRight: "20px", marginBottom: "0",*/ width: "30%" }}>색상명:</p>
+        <div style={{ display: "flex", position: "relative", textAlign: "left" }}>
           <button style={{ ...ColorContainer, background: selectedColor || "#FFF" }} onClick={() => setDropdownOpen(!dropdownOpen)}>
             색상 선택
-            <img src={dropdownOpen ? detail_close_arrow : detail_arrow} style={{ marginLeft: "10px" }} alt="자세히 보기" />
+            <img src={dropdownOpen ? detail_close_arrow : detail_arrow} style={{ marginLeft: "10px", width: '10px' }} alt="자세히 보기" />
           </button>
           {dropdownOpen && (
             <div
@@ -222,8 +223,8 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
           )}
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <p style={{ marginRight: "20px", marginBottom: "0", width: "100px" }}>알림 설정:</p>
+      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px", justifyContent: "space-between" }}>
+        <p style={{ /*marginRight: "20px", marginBottom: "0",*/ width: "30%" }}>알림 설정:</p>
         <select value={alarm} onChange={handleNotificationIntervalChange} style={ColorContainer}>
           <option value={0}>알림 없음</option>
           <option value={15}>15분</option>

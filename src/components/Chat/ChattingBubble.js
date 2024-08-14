@@ -26,14 +26,16 @@ const MessageContainer = styled.div`
 
 // 내 말풍선 스타일
 const MyMessageBubble = styled.div`
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+
   max-width: 60%;
   align-self: flex-end;
   background-color: rgba(112, 143, 254, 0.48);
   border-radius: 12px;
   padding: 10px;
   margin-bottom: 2.7vh;
-  text-align: center;
+  text-align: start;
   color: #2c2c2c;
   font-family: "Pretendard";
   font-size: 22px;
@@ -43,6 +45,11 @@ const MyMessageBubble = styled.div`
   letter-spacing: 0.22px;
   position: relative;
   animation: ${fadeIn} 0.5s ease-in-out;
+
+  & span {
+    width: 100%;
+    word-wrap: break-word;
+  }
 
   @media screen and (max-width: 768px) {
     font-size: 18px;
@@ -70,7 +77,7 @@ const OpponentMessageBubble = styled(MyMessageBubble)`
 // 캐릭터 이미지 스타일
 const CharacterImage = styled.img`
   width: 6vw;
-  height: 10vh;
+  /* height: 10vh; */
   border-radius: 50%;
   margin-right: 10px;
 
@@ -195,6 +202,7 @@ const ChattingBubble = ({
 
   const toggleUpdateModal = () => {
     setIsUpdateChatting(!isUpdateChatting); // 상태 업데이트
+    setIsCalender(false);
   };
 
   return (
@@ -262,7 +270,7 @@ const ChattingBubble = ({
         messages.map((message, index) =>
           message.isMine ? (
             <MyMessageBubble key={index} isMine={true} textLength={message.text.length}>
-              {message.text}
+              <span>{message.text}</span>
             </MyMessageBubble>
           ) : (
             <>
