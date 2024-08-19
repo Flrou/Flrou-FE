@@ -118,13 +118,14 @@ const Index = () => {
         // 일상 대화인 경우
         setChatType(0);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
+        // release 모드에서는 gpt 끄기
         reply = await ChatRequest(id, message, 0, false);
       }
 
       let replyText;
-      if(typeof reply === 'object') {
+      if (typeof reply === "object") {
         replyText = reply.response || reply.message || reply.error; // response, message, error 응답 렌더링
-      }else {
+      } else {
         replyText = reply;
       }
       const replyMessage = { text: replyText, isMine: false };
@@ -134,7 +135,7 @@ const Index = () => {
       } else if (isTodo) {
         setTodoMessage((prevTodoMessage) => [...prevTodoMessage, replyMessage]);
       } else {
-        setMessages((prevMessages) => [...prevMessages, replyMessage]);
+        // setMessages((prevMessages) => [...prevMessages, replyMessage]);
       }
 
       // 일정 등록 완료 시 대화 내역 초기화
@@ -155,10 +156,10 @@ const Index = () => {
   };
 
   useEffect(() => {
-    if(chatRef.current) {
+    if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
-  }, [messages])
+  }, [messages]);
 
   return (
     <Container>
