@@ -3,7 +3,7 @@ import axios from "axios";
 export const SignUpRequest = async (nickName, userId, userPw) => {
   try {
     const response = await axios.post(
-      "http://183.96.249.59:12521/user/signup",
+      "https://api.flrou.site/user/signup",
       {
         nickname: nickName,
         user_id: userId,
