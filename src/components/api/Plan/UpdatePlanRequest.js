@@ -34,7 +34,12 @@ export async function UpdatePlanRequest(
       color,
     };
 
-    const response = await axios.post("http://localhost:3000/plan/updatePlan", requestData);
+    const response = await axios.post("https://api.flrou.site/plan/updatePlan", requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     throw new Error("일정 등록에 실패했습니다.");

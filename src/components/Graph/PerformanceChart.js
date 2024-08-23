@@ -140,12 +140,21 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
   const handleSubmit = async () => {
     const id = localStorage.getItem("user_id");
     try {
-      const response = await axios.post("http://localhost:3000/user/setForce", {
-        user_id: id,
-        cur_year: currentYear,
-        cur_month: currentDate,
-        alarm: notificationTime, // 알림 시간 설정
-      });
+      const response = await axios.post(
+        "https://api.flrou.site/user/setForce",
+        {
+          user_id: id,
+          cur_year: currentYear,
+          cur_month: currentDate,
+          alarm: notificationTime, // 알림 시간 설정
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
       console.log(response);
       // 팝업 닫기
       setShowModal(false);

@@ -80,14 +80,23 @@ const Index = () => {
       const token = await getToken(messaging, {
         vapidKey: process.env.REACT_APP_VAPID_KEY,
       });
-      if(token) {
+      if (token) {
         // DB에 토큰 저장
-        const res = await axios.post("http://localhost:3000/user/setDeviceToken", {
-          user_id : response.data.user_id,
-          token : token
-        })
+        const res = await axios.post(
+          "https://api.flrou.site/user/setDeviceToken",
+          {
+            user_id: response.data.user_id,
+            token: token,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          },
+        );
         console.log(res);
-        if(res.data=='success') navigate("/chatting");
+        if (res.data == "success") navigate("/chatting");
       }
     } catch (error) {
       console.error("로그인 요청 실패:", error);
@@ -124,14 +133,14 @@ const Index = () => {
   const handleRequestPermission = async () => {
     // 서비스 워커 연결 (알림 허용)
     const permission = await Notification.requestPermission();
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
       registerServiceWorker();
-    }else {
-      console.log('Notification permission failed');
-      alert('알림 권한이 필요합니다. 브라우저 설정에서 알림 권한을 허용해주세요.');
+    } else {
+      console.log("Notification permission failed");
+      alert("알림 권한이 필요합니다. 브라우저 설정에서 알림 권한을 허용해주세요.");
     }
-  }
+  };
 
   return (
     <Container>

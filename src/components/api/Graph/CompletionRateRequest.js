@@ -2,7 +2,9 @@ import axios from "axios";
 
 export const CompletionRateRequest = async (user_id, select_year, select_month) => {
   try {
-    const response = await axios.get(`http://localhost:3000/plan/getGraph/${user_id}/${select_year}/${select_month}`);
+    const response = await axios.get(`https://api.flrou.site/plan/getGraph/${user_id}/${select_year}/${select_month}`, {
+      withCredentials: true,
+    });
     console.log(response.data);
     return response.data;
   } catch (error) {

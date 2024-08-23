@@ -9,7 +9,12 @@ export async function ChatRequest(user_id, content, mode, isUser) {
       isUser: isUser,
     };
 
-    const response = await axios.post("http://localhost:3000/chat/send", requestData);
+    const response = await axios.post("https://api.flrou.site/chat/send", requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
 
     return response.data;
   } catch (error) {

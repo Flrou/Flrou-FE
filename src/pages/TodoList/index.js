@@ -24,29 +24,38 @@ const Index = () => {
   // 투두 수정본
   const [newTodo, setNewTodo] = useState(null);
 
-
   // 전체 투두리스트 불러오기
   const getTodo = async () => {
-    const res = await axios.get(`http://localhost:3000/todo/getAllTodo/${user_id}`);
+    const res = await axios.get(`https://api.flrou.site/todo/getAllTodo/${user_id}`, {
+      withCredentials: true,
+    });
     console.log(res.data.activate);
     console.log(res.data.nonActivate);
     setTodoListActivate(res.data.activate);
     setTodoListNonActivate(res.data.nonActivate);
-  }
+  };
 
   // 버튼 클릭 시 (isDone true<->false)
   const handleTodoBtn = async (list) => {
     try {
-      const res = await axios.post("http://localhost:3000/todo/updateTodoDone", {
-        todo_id: list.id
-      })
+      const res = await axios.post(
+        "https://api.flrou.site/todo/updateTodoDone",
+        {
+          todo_id: list.id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
       // console.log(res);
       getTodo();
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   // 리스트 클릭시 (수정/삭제 요청)
   const clickContent = async (list) => {
@@ -54,41 +63,58 @@ const Index = () => {
     // console.log(list.todo);
     setClicked(!clicked);
     // console.log(clicked);
-  }
+  };
 
   // 수정 버튼 클릭시
   const clickV = async (list) => {
-    if(!newTodo) setClicked(false);
-    if(newTodo) {
-      await axios.post("http://localhost:3000/todo/updateTodo", {
-        todo_id: list.id,
-        new_todo: newTodo
-      })
+    if (!newTodo) setClicked(false);
+    if (newTodo) {
+      await axios.post(
+        "https://api.flrou.site/todo/updateTodo",
+        {
+          todo_id: list.id,
+          new_todo: newTodo,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
       setClicked(false);
       getTodo();
     }
-  }
+  };
 
   // 삭제 버튼 클릭시
   const clickX = async (list) => {
-    if(confirm("삭제하시겠습니까?")) {
-      await axios.post("http://localhost:3000/todo/deleteTodo", {
-        todo_id: list.id,
-      })
+    if (confirm("삭제하시겠습니까?")) {
+      await axios.post(
+        "https://api.flrou.site/todo/deleteTodo",
+        {
+          todo_id: list.id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
       getTodo();
-    }else {
+    } else {
       setClicked(false);
     }
-  }
+  };
 
   useEffect(() => {
     getTodo();
-  }, [])
+  }, []);
 
   // useEffect(() => {
   //   console.log(newTodo)
   // }, [newTodo])
-
 
   // 최종 발표 ver
   return (
@@ -101,80 +127,143 @@ const Index = () => {
         </TodoSubject>
 
         <TodoContainer isMobile={isMobile}>
-        {/* 미완료 탭 */}
-        {todoListActivate && todoListActivate.map((list) => {
-          let color = '#77ADFD';
-          return(
-            <>
-            <TodoList isMobile={isMobile} key={list.id} col={color} onClick={() => {clickContent(list)}}>
-              {clicked ? (
+          {/* 미완료 탭 */}
+          {todoListActivate &&
+            todoListActivate.map((list) => {
+              let color = "#77ADFD";
+              return (
                 <>
-                <TodoContent isMobile={isMobile}>
-                  <input
-                    onClick={(e) => e.stopPropagation()}
-                    onChange={(e) => setNewTodo(e.target.value)}
-                    placeholder={list.todo}
-                  />
-                </TodoContent>
-                <TodoButton isMobile={isMobile} onClick={(e) => {e.stopPropagation()}}>
-                  <TodoButton2 isMobile={isMobile} col={'#77ADFD'} onClick={() => {clickV(list)}}>V</TodoButton2>
-                  <TodoButton2 isMobile={isMobile} col={'red'} onClick={() => {clickX(list)}}>X</TodoButton2>
-                </TodoButton>
+                  <TodoList
+                    isMobile={isMobile}
+                    key={list.id}
+                    col={color}
+                    onClick={() => {
+                      clickContent(list);
+                    }}
+                  >
+                    {clicked ? (
+                      <>
+                        <TodoContent isMobile={isMobile}>
+                          <input
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => setNewTodo(e.target.value)}
+                            placeholder={list.todo}
+                          />
+                        </TodoContent>
+                        <TodoButton
+                          isMobile={isMobile}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          <TodoButton2
+                            isMobile={isMobile}
+                            col={"#77ADFD"}
+                            onClick={() => {
+                              clickV(list);
+                            }}
+                          >
+                            V
+                          </TodoButton2>
+                          <TodoButton2
+                            isMobile={isMobile}
+                            col={"red"}
+                            onClick={() => {
+                              clickX(list);
+                            }}
+                          >
+                            X
+                          </TodoButton2>
+                        </TodoButton>
+                      </>
+                    ) : (
+                      <>
+                        <TodoContent isMobile={isMobile}>{list.todo}</TodoContent>
+                        <TodoButton isMobile={isMobile}>
+                          <img
+                            src={btn1}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleTodoBtn(list);
+                            }}
+                          ></img>
+                        </TodoButton>
+                      </>
+                    )}
+                  </TodoList>
                 </>
-              ) : (
-                <>
-                <TodoContent isMobile={isMobile}>{list.todo}</TodoContent>
-                <TodoButton isMobile={isMobile}>
-                  <img src={btn1} onClick={(e) => {
-                    e.stopPropagation();
-                    handleTodoBtn(list);
-                  }}></img>
-                </TodoButton>
-                </>
-              )}
-            </TodoList>
-            </>
-          )})}
+              );
+            })}
 
-        {todoListActivate && todoListNonActivate && todoListActivate.length > 0 && todoListNonActivate.length > 0 &&
-          <Line />
-        }
+          {todoListActivate && todoListNonActivate && todoListActivate.length > 0 && todoListNonActivate.length > 0 && <Line />}
 
-        {/* 완료 탭 */}
-        {todoListNonActivate && todoListNonActivate.map((list) => {
-          let color = 'lightgray';
-          return(
-            <>
-            <TodoList isMobile={isMobile} key={list.id} col={color} onClick={() => {clickContent(list)}}>
-              {clicked ? (
+          {/* 완료 탭 */}
+          {todoListNonActivate &&
+            todoListNonActivate.map((list) => {
+              let color = "lightgray";
+              return (
                 <>
-                <TodoContent isMobile={isMobile}>
-                  <input
-                    onClick={(e) => e.stopPropagation()}
-                    onChange={(e) => setNewTodo(e.target.value)}
-                    placeholder={list.todo}
-                  />
-                </TodoContent>
-                <TodoButton isMobile={isMobile} onClick={(e) => {e.stopPropagation()}}>
-                  <TodoButton2 isMobile={isMobile} col={'#77ADFD'} onClick={() => {clickV(list)}}>V</TodoButton2>
-                  <TodoButton2 isMobile={isMobile} col={'red'} onClick={() => {clickX(list)}}>X</TodoButton2>
-                </TodoButton>
+                  <TodoList
+                    isMobile={isMobile}
+                    key={list.id}
+                    col={color}
+                    onClick={() => {
+                      clickContent(list);
+                    }}
+                  >
+                    {clicked ? (
+                      <>
+                        <TodoContent isMobile={isMobile}>
+                          <input
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => setNewTodo(e.target.value)}
+                            placeholder={list.todo}
+                          />
+                        </TodoContent>
+                        <TodoButton
+                          isMobile={isMobile}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          <TodoButton2
+                            isMobile={isMobile}
+                            col={"#77ADFD"}
+                            onClick={() => {
+                              clickV(list);
+                            }}
+                          >
+                            V
+                          </TodoButton2>
+                          <TodoButton2
+                            isMobile={isMobile}
+                            col={"red"}
+                            onClick={() => {
+                              clickX(list);
+                            }}
+                          >
+                            X
+                          </TodoButton2>
+                        </TodoButton>
+                      </>
+                    ) : (
+                      <>
+                        <TodoContent isMobile={isMobile}>{list.todo}</TodoContent>
+                        <TodoButton isMobile={isMobile}>
+                          <img
+                            src={btn2}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleTodoBtn(list);
+                            }}
+                          ></img>
+                        </TodoButton>
+                      </>
+                    )}
+                  </TodoList>
                 </>
-              ) : (
-                <>
-                  <TodoContent isMobile={isMobile}>{list.todo}</TodoContent>
-                  <TodoButton isMobile={isMobile}>
-                    <img src={btn2} onClick={(e) => {
-                      e.stopPropagation();
-                      handleTodoBtn(list);
-                    }}></img>
-                  </TodoButton>
-                </>
-              )}
-            </TodoList>
-            </>
-          )})}
-
+              );
+            })}
         </TodoContainer>
 
         {isMobile && <BottomBar />}
