@@ -230,12 +230,6 @@ const ChattingBubble = ({
                     <UpdateModalContainer key={index}>
                       <UpdateModal schedule={selectedSchedule} onClose={toggleUpdateModal} onSave={handleSave} isPopup={false} />
                     </UpdateModalContainer>
-                    {success && (
-                      <OpponentMessageContainer>
-                        <CharacterImage src={Character} alt="character" />
-                        <OpponentMessageBubble isMine={false}>{"일정 등록이 완료되었습니다"}</OpponentMessageBubble>
-                      </OpponentMessageContainer>
-                    )}
                   </div>
                 </OpponentMessageContainer>
               </>

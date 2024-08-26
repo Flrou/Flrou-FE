@@ -120,7 +120,7 @@ const Index = () => {
         reply = await ChatRequest(id, message, 0, false);
       }
 
-      let replyText = reply.response || reply;
+      let replyText = reply.response || reply || reply.message;
       const replyMessage = { text: replyText, isMine: false };
 
       if (isCalender) {
