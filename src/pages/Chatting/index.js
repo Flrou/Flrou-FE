@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Background from "../../layout/Background";
 import Header from "../../layout/Header";
 import PrimaryButton from "../../components/Button/PrimaryButton";
@@ -24,6 +24,7 @@ const Index = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const id = localStorage.getItem("user_id");
   const isMobile = useIsMobile();
+  const chatRef = useRef(null);
 
   const fetchPreviousChatting = async () => {
     try {
@@ -120,7 +121,12 @@ const Index = () => {
         reply = await ChatRequest(id, message, 0, false);
       }
 
-      let replyText = reply.response || reply || reply.message;
+      let replyText;
+      if(typeof reply === 'object') {
+        replyText = reply.response || reply.message || reply.error; // response, message, error 응답 렌더링
+      }else {
+        replyText = reply;
+      }
       const replyMessage = { text: replyText, isMine: false };
 
       if (isCalender) {
@@ -148,11 +154,17 @@ const Index = () => {
     }
   };
 
+  useEffect(() => {
+    if(chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages])
+
   return (
     <Container>
       <Header />
       {!isMobile && <Background />}
-      <ChatScreen>
+      <ChatScreen ref={chatRef}>
         <ChattingBubble
           messages={messages}
           scheduleMessage={scheduleMessage}

@@ -9,7 +9,7 @@ import chatting from "../../assets/chatting.png";
 
 const BottomBarContainer = styled.div`
   width: 100%;
-  height: 60px;
+  height: 70px;
   background: linear-gradient(90deg, #b7e3e3 0%, #c3ddfa 100%);
   backdrop-filter: blur(2px);
   display: flex;

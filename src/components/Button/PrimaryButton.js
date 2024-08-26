@@ -23,6 +23,12 @@ const StyledButton = styled.button`
   font-weight: 600;
   line-height: normal;
 
+  cursor: pointer;
+  &:hover {
+    background-color: #63a1fd;
+    color: #fff;
+  }
+
   /* 모바일 화면에서 숨김 */
   @media screen and (max-width: 768px) {
     width: 96px;
