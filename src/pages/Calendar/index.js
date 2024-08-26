@@ -39,7 +39,7 @@ const Calendar = () => {
     const fetchData = async () => {
       try {
         const currentMonth = moment(date);
-        const monthsToFetch = 12;
+        const monthsToFetch = 12; 
         const requests = [];
 
         for (let i = -monthsToFetch; i <= monthsToFetch; i++) {
@@ -122,7 +122,7 @@ const Calendar = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    setShowCalendarDetails(true);
+    setShowCalendarDetails(true); 
   };
 
   const handleCompleteToggle = async (scheduleId) => {
@@ -257,34 +257,40 @@ const Calendar = () => {
             }}
           />
         </StyledCalendarWrapper>
-      <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-        <DetailContainer style={{ marginBottom: isMobile ? "50px" : 0 }}>
-          {filteredSchedules.length > 0 && (
-            <StyledScheduleContainer style={{ marginBottom: "5px" }}>
-              {filteredSchedules.map((schedule, index) => (
-                <StyledScheduleDetail key={index} style={{ opacity: schedule.isDone ? 0.5 : 1 }}>
-                  <div style={{ alignItems: "center" }} onClick={() => handlePopup(schedule)}>
-                    <span style={{ color: "#A391FF" }}>
-                      {`${new Date(schedule.startDate).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })} ~ ${new Date(schedule.endDate).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}`}
-                    </span>
-                    <span style={{ width: "100px", marginLeft: "50px" }}>{schedule.title}</span>
-                  </div>
-                  <img src={schedule.isDone ? toggle_on : toggle_off} alt="토글 활성화" onClick={() => handleCompleteToggle(schedule.id)} />
-                </StyledScheduleDetail>
-              ))}
-            </StyledScheduleContainer>
-          )}
-        </DetailContainer>
-      </div>
-
+      </Container>
+      {showCalendarDetails && ( 
+        <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "50px" : 0 }}>
+            {filteredSchedules.length > 0 && (
+              <StyledScheduleContainer style={{ marginBottom: "5px" }}>
+                {filteredSchedules.map((schedule, index) => (
+                  <StyledScheduleDetail key={index} style={{ opacity: schedule.isDone ? 0.5 : 1 }}>
+                    <div style={{ alignItems: "center" }} onClick={() => handlePopup(schedule)}>
+                      <span style={{ color: "#A391FF" }}>
+                        {`${new Date(schedule.startDate).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })} ~ ${new Date(schedule.endDate).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}`}
+                      </span>
+                      <span style={{ width: "100px", marginLeft: "50px" }}>{schedule.title}</span>
+                    </div>
+                    <img
+                      src={schedule.isDone ? toggle_on : toggle_off}
+                      alt="토글 활성화"
+                      onClick={() => handleCompleteToggle(schedule.id)}
+                    />
+                  </StyledScheduleDetail>
+                ))}
+              </StyledScheduleContainer>
+            )}
+          </DetailContainer>
+        </div>
+      )}
       {showPopup && (
         <>
           <div
