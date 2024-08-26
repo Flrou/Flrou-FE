@@ -31,6 +31,7 @@ const Calendar = () => {
   const [filteredSchedules, setFilteredSchedules] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [showCalendarDetails, setShowCalendarDetails] = useState(true); // State to control calendar details visibility
   const id = localStorage.getItem("user_id");
   const isMobile = useIsMobile();
 
@@ -38,24 +39,27 @@ const Calendar = () => {
     const fetchData = async () => {
       try {
         const currentMonth = moment(date);
-        const previousMonth = currentMonth.clone().subtract(1, "month");
-        const nextMonth = currentMonth.clone().add(1, "month");
+        const monthsToFetch = 12;
+        const requests = [];
 
-        const responseCurrentMonth = await GetPlanRequest(id, currentMonth.format("YYYY"), currentMonth.format("M"));
-        const responsePreviousMonth = await GetPlanRequest(id, previousMonth.format("YYYY"), previousMonth.format("M"));
-        const responseNextMonth = await GetPlanRequest(id, nextMonth.format("YYYY"), nextMonth.format("M"));
+        for (let i = -monthsToFetch; i <= monthsToFetch; i++) {
+          const month = currentMonth.clone().add(i, "month");
+          requests.push(GetPlanRequest(id, month.format("YYYY"), month.format("M")));
+        }
 
-        if (!Array.isArray(responseCurrentMonth) || !Array.isArray(responsePreviousMonth) || !Array.isArray(responseNextMonth)) {
+        const responses = await Promise.all(requests);
+
+        if (responses.some((response) => !Array.isArray(response))) {
           console.error("데이터가 배열이 아닙니다.");
           return;
         }
 
-        const allSchedules = responseCurrentMonth.concat(responsePreviousMonth).concat(responseNextMonth);
+        const allSchedules = responses.flat();
 
         const secondFormatDataArray = allSchedules.map((item) => ({
           id: item.id,
-          startDate: new Date(item.s_year, item.s_month - 1, item.s_day, item.s_hour, item.s_minute), // Date 객체로 변환
-          endDate: new Date(item.f_year, item.f_month - 1, item.f_day, item.f_hour, item.f_minute), // Date 객체로 변환
+          startDate: new Date(item.s_year, item.s_month - 1, item.s_day, item.s_hour, item.s_minute),
+          endDate: new Date(item.f_year, item.f_month - 1, item.f_day, item.f_hour, item.f_minute),
           title: item.plan,
           color: getColorByNumber(item.color),
           isDone: item.isDone,
@@ -63,7 +67,7 @@ const Calendar = () => {
         }));
 
         setSchedules(secondFormatDataArray);
-        setFilteredSchedules(secondFormatDataArray.filter((schedule) => moment(date).isSame(schedule.startDate, "day"))); // 초기 필터링 상태 설정
+        setFilteredSchedules(secondFormatDataArray.filter((schedule) => moment(date).isSame(schedule.startDate, "day")));
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -118,6 +122,7 @@ const Calendar = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
+    setShowCalendarDetails(true);
   };
 
   const handleCompleteToggle = async (scheduleId) => {
@@ -230,10 +235,15 @@ const Calendar = () => {
             prev2Label={null}
             minDetail="year"
             activeStartDate={activeStartDate}
-            onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
+            onActiveStartDateChange={({ activeStartDate }) => {
+              setActiveStartDate(activeStartDate);
+              setShowCalendarDetails(false); // Hide details when navigating between months
+            }}
             onClickDay={handleDayClick}
             tileContent={({ date }) => {
-              const matchingSchedules = schedules.filter((schedule) => moment(date).isSame(schedule.startDate, "day"));
+              const matchingSchedules = schedules.filter((schedule) =>
+                moment(date).isBetween(schedule.startDate, schedule.endDate, "day", "[]"),
+              );
               return matchingSchedules.map((matchingSchedule, index) => (
                 <StyledSchedule
                   color={matchingSchedule.color}
@@ -293,7 +303,6 @@ const Calendar = () => {
         </>
       )}
       {isMobile && <BottomBar />}
-      </Container>
     </>
   );
 };
