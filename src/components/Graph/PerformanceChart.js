@@ -94,7 +94,7 @@ const ToggleButton = styled.button`
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [notificationTime, setNotificationTime] = useState("00:15"); // 초기 알림 시간 설정 (00:15)
   const currentDateMonth = new Date();
