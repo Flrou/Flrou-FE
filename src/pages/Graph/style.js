@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 0px;
   padding: 0 4vw;
   box-sizing: border-box;
   display: flex;
@@ -23,9 +23,9 @@ export const PeriodText = styled.div`
   justify-content: center;
   @media screen and (max-width: 768px) {
     width: auto;
-    color: #000;
+    color: #;
     font-family: Pretend-Light;
-    font-size: 15px;
+    font-size: #007bff;
     font-style: normal;
     font-weight: 500;
     line-height: normal;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend, Area } from "recharts";
 import styled from "styled-components";
 import character from "../../assets/flrou_character.png";
 
@@ -17,13 +17,13 @@ const Backdrop = styled.div`
 const Modal = styled.div`
   position: fixed;
   width: 90%;
-  max-width: 600px; /* Limiting maximum width for better readability */
+  max-width: 600px;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
-  color: black;
+  color: ${(props) => (props.warning ? "#d9534f" : "black")};
   padding: 20px;
   border-radius: 26px;
   box-shadow: 0px 3px 24px 0px rgba(0, 0, 0, 0.24);
@@ -32,17 +32,17 @@ const Modal = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center; /* 중앙 정렬 추가 */
+  justify-content: center;
 `;
 
 const Paragraph = styled.p`
-  margin: 10px 0; /* Adjusted margin for better spacing */
+  margin: 10px 0;
   font-size: 18px;
   font-weight: bold;
 `;
 
 const BlueText = styled.span`
-  color: #63a1fd;
+  color: ${(props) => (props.warning ? "#d9534f" : "#63a1fd")};
   font-weight: bold;
 `;
 
@@ -59,8 +59,8 @@ const Text = styled.p`
 
 const Button = styled.button`
   margin-top: 20px;
-  padding: 12px 24px; /* Increased padding for button */
-  background-color: #63a1fd;
+  padding: 12px 24px;
+  background-color: ${(props) => (props.warning ? "#d9534f" : "#63a1fd")};
   color: white;
   border: none;
   border-radius: 5px;
@@ -68,7 +68,7 @@ const Button = styled.button`
   font-size: 16px;
 
   &:hover {
-    background-color: #5079c6;
+    background-color: ${(props) => (props.warning ? "#c9302c" : "#5079c6")};
   }
 `;
 
@@ -78,25 +78,38 @@ const ToggleContainer = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  margin: 0 8px; /* Adjusted margin for toggle buttons */
+  margin: 0 8px;
   padding: 8px 16px;
-  background-color: ${(props) => (props.active ? "#63a1fd" : "#ddd")};
-  color: ${(props) => (props.active ? "white" : "#333")};
+  background-color: ${(props) => (props.active ? (props.warning ? "#c9302c" : "#63a1fd") : props.warning ? "#f5c6c6" : "#ddd")};
+  color: ${(props) => (props.active ? "white" : props.warning ? "#d9534f" : "#333")};
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
 
   &:hover {
-    background-color: ${(props) => (props.active ? "#5079c6" : "#ccc")};
+    background-color: ${(props) => (props.active ? (props.warning ? "#ac2925" : "#5079c6") : props.warning ? "#f1b0b7" : "#ccc")};
   }
+`;
+
+const WarningMessage = styled.div`
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: ${(props) => (props.warning ? "#ffefef" : "#cce8f4")};
+  color: ${(props) => (props.warning ? "#d9534f" : "#66a0da")};
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [notificationTime, setNotificationTime] = useState("00:15"); // 초기 알림 시간 설정 (00:15)
+  const [notificationTime, setNotificationTime] = useState("00:15");
+  const [showWarning, setShowWarning] = useState(false);
   const currentDateMonth = new Date();
   const currentDate = currentDateMonth.getMonth() + 1;
 
@@ -104,12 +117,13 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
     const generateData = () => {
       if (successCount && successCount.length > 0) {
         let newData = [];
+        let incompleteRate = 0;
 
         if (isActive === "month") {
           successCount.forEach((count, index) => {
             const total = count[0] + count[1];
             const completionRate = total === 0 ? 0 : Math.round((count[0] / total) * 100);
-            const incompleteRate = total === 0 ? 0 : 100 - completionRate;
+            incompleteRate = total === 0 ? 0 : 100 - completionRate;
             newData.push({
               month: `${index + 1}월`,
               완료율: completionRate,
@@ -124,14 +138,16 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
             totalCount += count[0] + count[1];
           });
           const completionRate = totalCount === 0 ? 0 : Math.round((totalSuccess / totalCount) * 100);
-          const incompleteRate = totalCount === 0 ? 0 : 100 - completionRate;
+          incompleteRate = totalCount === 0 ? 0 : 100 - completionRate;
           newData.push({
             month: `${currentDate}월`,
             완료율: completionRate,
             미완료율: incompleteRate,
           });
         }
+
         setData(newData);
+        setShowWarning(incompleteRate >= 50);
       }
     };
     generateData();
@@ -174,7 +190,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
       const label = `${minute < 10 ? `0${minute}` : minute}`; // 시간과 분을 포맷팅
       const value = `${minute}`;
       buttons.push(
-        <ToggleButton key={label} active={notificationTime === value} onClick={() => handleToggle(value)}>
+        <ToggleButton key={label} active={notificationTime === value} warning={showWarning} onClick={() => handleToggle(value)}>
           {label}분 전
         </ToggleButton>,
       );
@@ -185,35 +201,64 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
   return (
     <div style={{ position: "relative", backgroundColor: "#fff", textAlign: "left", width: "100%", height: "100%" }}>
       {showModal && <Backdrop />}
+      {showWarning && (
+        <WarningMessage warning={showWarning}>
+          ⚠️ 경고: 미완료율이 50% 이상입니다. <br />
+          작은 한 걸음이 큰 변화를 만듭니다. 지금 바로 첫 걸음을 내딛어 보세요!
+        </WarningMessage>
+      )}
+      {!showWarning && (
+        <WarningMessage warning={showWarning}>
+          현재의 일정 관리 상태가 정말 좋습니다! <br />
+          지금의 성과를 바탕으로 계속해서 목표를 향해 나아가세요.
+        </WarningMessage>
+      )}
+
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 5, right: 30, left: 5, bottom: 5 }}>
-          <CartesianGrid vertical={false} />
+        <LineChart data={data} margin={{ top: 5, right: 30, left: 5, bottom: 5 }} style={{ backgroundColor: "transparent" }}>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#f5f5f5" />
           <XAxis dataKey="month" />
           <YAxis domain={[0, 100]} />
-          <Tooltip cursor={{ fill: "rgba(207, 239, 255, 0.7)" }} formatter={(value) => `${value}%`} />
+          <Tooltip cursor={{ fill: showWarning ? "#ffcccc" : "rgba(207, 239, 255, 0.7)" }} formatter={(value) => `${value}%`} />
           <Legend />
-          <Bar dataKey="완료율" stackId="a" fill="#75b1f6" barSize={30} onClick={(data, index) => setHoveredIndex(index)} />
-          <Bar dataKey="미완료율" stackId="a" fill="#A9A6A6" barSize={30} onClick={(data, index) => setHoveredIndex(index)} />
-          <ReferenceLine y={50} stroke="#FFC2C2" strokeWidth={2} label={{ value: "50", position: "right", dy: 5 }} />
-        </BarChart>
+          <Area
+            type="monotone"
+            dataKey="미완료율"
+            stroke={showWarning ? "#d9534f" : "#FF6F6F"}
+            fill={showWarning ? "#f8d7da" : "#FF6F6F"}
+            fillOpacity={0.3}
+            isAnimationActive={false}
+            strokeWidth={2}
+          />
+          <Line type="monotone" dataKey="완료율" stroke="#63a1fd" strokeWidth={3} />
+          <Line type="monotone" dataKey="미완료율" stroke={showWarning ? "#d9534f" : "#FF6F6F"} strokeWidth={3} />
+          <ReferenceLine
+            y={50}
+            stroke={showWarning ? "#f8d7da" : "#FFC2C2"}
+            strokeWidth={2}
+            label={{ value: "50", position: "right", dy: 5 }}
+          />
+        </LineChart>
       </ResponsiveContainer>
       {showModal && (
-        <Modal>
+        <Modal warning={showWarning}>
           <Paragraph>
             {`${currentDate}월의 일정 완료율이 `}
-            <BlueText>{data.length > 0 ? `${data[4].완료율}%` : "데이터 없음"}</BlueText>
+            <BlueText warning={showWarning}>{data.length > 0 ? `${data[0].완료율}%` : "데이터 없음"}</BlueText>
             {`입니다.`}
           </Paragraph>
           <StyledImage src={character} alt="character" />
           <Text>
-            많은 일정에 <BlueText>알림</BlueText>을 설정하지 않았어요
+            많은 일정에 <BlueText warning={showWarning}>알림</BlueText>을 설정하지 않았어요
             <br />
-            오늘부터 <BlueText>한 달간</BlueText> 모든 일정에 알림이 설정됩니다.
+            오늘부터 <BlueText warning={showWarning}>한 달간</BlueText> 모든 일정에 알림이 설정됩니다.
             <br />
-            <BlueText>알림 시간</BlueText>을 선택해주세요~
+            <BlueText warning={showWarning}>알림 시간</BlueText>을 선택해주세요~
           </Text>
           <ToggleContainer>{renderToggleButtons()}</ToggleContainer>
-          <Button onClick={handleSubmit}>확인</Button>
+          <Button warning={showWarning} onClick={handleSubmit}>
+            확인
+          </Button>
         </Modal>
       )}
     </div>
