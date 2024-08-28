@@ -36,7 +36,7 @@ export const FlrouLogin = styled(WelcomeButton)`
   animation: none;
 
   color: #fff;
-  font-family: "Noto Sans KR";
+  font-family: Roboto;
   font-size: 25px;
   font-style: normal;
   font-weight: 700;

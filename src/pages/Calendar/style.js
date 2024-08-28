@@ -39,8 +39,8 @@ export const StyledCalendarWrapper = styled.div`
   .react-calendar__month-view {
     abbr {
       color: #2c2c2c;
-      font-family: "Noto Sans KR";
-      font-size: 20px;
+      font-family: Pretendard-Light;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: 20px;
@@ -54,9 +54,9 @@ export const StyledCalendarWrapper = styled.div`
 
   /* 요일 제목 텍스트 스타일 */
   .react-calendar__month-view__weekdays abbr {
-    color: #2c2c2c;
-    font-family: "Noto Sans KR";
-    font-size: 25px;
+    color: rgba(44, 44, 44, 0.3);
+    font-family: Pretendard-Light;
+    font-size: 20px;
     font-style: normal;
     font-weight: 200;
     line-height: 20px;
@@ -69,13 +69,14 @@ export const StyledCalendarWrapper = styled.div`
     gap: 2px; /* 각 셀 사이의 간격 설정 */
   }
 
-  /* 토요일에만 파란색으로 */
+  /* 토요일에만 파란색으로 투명도 추가 */
   .react-calendar__month-view__weekdays__weekday--weekend abbr[title="토요일"] {
-    color: blue;
+    color: rgba(0, 0, 255, 0.3);
   }
-  /* 일요일에만 빨간색으로 */
+
+  /* 일요일에만 빨간색으로 투명도 추가 */
   .react-calendar__month-view__weekdays__weekday--weekend abbr[title="일요일"] {
-    color: red;
+    color: rgba(255, 0, 0, 0.3);
   }
 
   /* 네비게이션 오른쪽 정렬 */
@@ -86,9 +87,9 @@ export const StyledCalendarWrapper = styled.div`
 
   /* 네비게이션 폰트 설정 */
   .react-calendar__navigation button {
-    color: #2c2c2c;
-    font-family: "Noto Sans KR";
-    font-size: 25px;
+    color: #329cfe;
+    font-family: Pretendard-Regular;
+    font-size: 20px;
     font-style: normal;
     font-weight: 100;
     line-height: 20px;
@@ -102,7 +103,7 @@ export const StyledCalendarWrapper = styled.div`
   /* 네비게이션 비활성화 됐을때 스타일 */
   .react-calendar__navigation button:disabled {
     background-color: white;
-    color: #2c2c2c;
+    color: #329cfe;
   }
 
   /* 년/월 상단 네비게이션 칸 크기 줄이기 */
@@ -130,7 +131,7 @@ export const StyledCalendarWrapper = styled.div`
   .react-calendar__year-view__months__month {
     border-radius: 0.8rem;
     color: var(--Main-Font, #2c2c2c);
-    font-family: "Noto Sans KR";
+    font-family: Pretendard-Light;
     font-size: 18px;
     font-style: normal;
     font-weight: 100;
@@ -168,7 +169,7 @@ export const StyledCalendarWrapper = styled.div`
     padding: 20px 6.6667px;
 
     color: var(--Main-Font, #2c2c2c);
-    font-family: "Noto Sans KR";
+    font-family: Pretendard-Light;
     font-size: 15px;
     font-style: normal;
     font-weight: 100;
@@ -204,7 +205,7 @@ export const StyledCalendarWrapper = styled.div`
   @media (max-width: 768px) {
     .react-calendar__tile {
       height: 90px; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
-      font-size: 16px; /* 날짜 폰트 크기를 키움 */
+      font-size: 15px; /* 날짜 폰트 크기를 키움 */
     }
   }
 `;

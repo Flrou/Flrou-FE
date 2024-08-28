@@ -62,7 +62,7 @@ export const ModalButton = styled.button`
   background-color: #b0c3ff;
   color: #2c2c2c;
   cursor: pointer;
-  font-family: "Noto Sans KR";
+  font-family: Pretendard-Light;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;

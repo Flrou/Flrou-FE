@@ -39,7 +39,7 @@ const MyMessageBubble = styled.div`
   margin-bottom: 2.7vh;
   text-align: start;
   color: #2c2c2c;
-  font-family: "Pretendard";
+  font-family: Pretendard-Light;
   font-size: 22px;
   font-style: normal;
   font-weight: 500;

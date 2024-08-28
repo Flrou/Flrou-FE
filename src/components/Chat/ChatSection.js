@@ -20,7 +20,7 @@ const StyledInput = styled.input`
   padding-right: 30px;
   padding-left: 30px;
   color: #4e4d4d;
-  font-family: "Pretendard";
+  font-family: Pretendard-Light;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;

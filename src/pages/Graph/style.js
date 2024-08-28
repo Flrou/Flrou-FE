@@ -12,28 +12,25 @@ export const Container = styled.div`
 
 export const PeriodText = styled.div`
   color: #63a1fd;
-  font-family: Pretendard;
+  font-family: Pretendard-Light;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.36px;
-<<<<<<< Updated upstream
-=======
   display: flex;
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 768px) {
     width: auto;
     color: #000;
-    font-family: "Noto Sans KR";
+    font-family: Pretend-Light;
     font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     white-space: nowrap;
   }
->>>>>>> Stashed changes
 `;
 
 export const PriodChangeButton = styled.button`
@@ -79,7 +76,7 @@ export const CenteredContent = styled.div`
   width: auto;
   height: 100%;
   color: #2c2c2c;
-  font-family: Pretendard;
+  font-family: Pretendard-Light;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -89,12 +86,11 @@ export const CenteredContent = styled.div`
   color: #63a1fd;
   @media screen and (max-width: 768px) {
     width: 100px;
-    font-family: "Noto Sans KR";
+    font-family: Pretendard-Light;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     white-space: nowrap;
   }
-
 `;

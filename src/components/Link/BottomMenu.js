@@ -56,7 +56,7 @@ const ChattingButton = styled(Button)`
   color: #00bdf5;
   text-align: center;
   -webkit-text-stroke-width: 2;
-  font-family: "Noto Sans KR";
+  font-family: Pretendard-Light;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;

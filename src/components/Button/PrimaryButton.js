@@ -17,7 +17,7 @@ const StyledButton = styled.button`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   color: #4e4d4d;
-  font-family: "Pretendard";
+  font-family: Pretendard-Light;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;

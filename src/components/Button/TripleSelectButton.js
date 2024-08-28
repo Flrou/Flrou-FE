@@ -13,7 +13,7 @@ const ButtonContainer = styled.div`
 
   color: var(--Sub-Font, #b0b0b0);
   text-align: center;
-  font-family: Pretendard;
+  font-family: Pretendard-Light;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
