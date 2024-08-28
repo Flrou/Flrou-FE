@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 0px;
   padding: 0 4vw;
+  padding-bottom: 70px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
 `;
 
 export const PeriodText = styled.div`
@@ -65,7 +66,7 @@ export const Center = styled.div`
   gap: 30px;
   @media screen and (max-width: 768px) {
     justify-content: flex-start;
-    gap: 60px;
+    gap: 10px;
   }
 `;
 
