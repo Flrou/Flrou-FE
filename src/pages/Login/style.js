@@ -10,7 +10,7 @@ export const KakaoLoginButton = styled(WelcomeButton)`
 
   color: #2a2a2a;
   text-align: center;
-  font-family: Roboto;
+  font-family: Pretendard-Regular;
   font-size: 25px;
   font-style: normal;
   font-weight: 500;
@@ -36,10 +36,10 @@ export const FlrouLogin = styled(WelcomeButton)`
   animation: none;
 
   color: #fff;
-  font-family: Roboto;
+  font-family: Pretendard-Regular;
   font-size: 25px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   line-height: normal;
 
   &:hover {
