@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.2c7c8637.css",
-    "main.js": "/static/js/main.b1340b75.js",
+    "main.css": "/static/css/main.999331cd.css",
+    "main.js": "/static/js/main.d929a216.js",
     "static/js/453.bee88dfe.chunk.js": "/static/js/453.bee88dfe.chunk.js",
+    "static/media/Pretendard-Light.ttf": "/static/media/Pretendard-Light.ae54342c83bcc5345734.ttf",
     "static/media/Pretendard-Regular.ttf": "/static/media/Pretendard-Regular.e134b5961452730e41ec.ttf",
     "static/media/flrou_logo.png": "/static/media/flrou_logo.6871d68ba6166d1493be.png",
     "static/media/Coiny-Regular.ttf": "/static/media/Coiny-Regular.61e71214a606a6502029.ttf",
     "static/media/flrou_character.png": "/static/media/flrou_character.05237d10102b8efd88f6.png",
     "index.html": "/index.html",
     "static/media/send_button.svg": "/static/media/send_button.6bf38b09890d2f370230035de37e0376.svg",
-    "main.2c7c8637.css.map": "/static/css/main.2c7c8637.css.map",
-    "main.b1340b75.js.map": "/static/js/main.b1340b75.js.map",
+    "main.999331cd.css.map": "/static/css/main.999331cd.css.map",
+    "main.d929a216.js.map": "/static/js/main.d929a216.js.map",
     "453.bee88dfe.chunk.js.map": "/static/js/453.bee88dfe.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c7c8637.css",
-    "static/js/main.b1340b75.js"
+    "static/css/main.999331cd.css",
+    "static/js/main.d929a216.js"
   ]
 }
