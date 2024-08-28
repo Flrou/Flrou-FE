@@ -96,8 +96,10 @@ const Index = () => {
           },
         );
         console.log(res);
-        navigate("/chatting");
+        //if (res.data == "success") navigate("/chatting");
       }
+      navigate("/chatting");
+      
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     }
