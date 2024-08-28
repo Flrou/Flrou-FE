@@ -62,10 +62,10 @@ export const ModalButton = styled.button`
   background-color: #b0c3ff;
   color: #2c2c2c;
   cursor: pointer;
-  font-family: Pretendard-Light;
+  font-family: Pretendard-Regular;
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.14px;
 
   &:hover {
@@ -80,5 +80,6 @@ export const ModalText = styled.span`
   display: block;
   margin-top: 10px;
   padding-bottom: 5px;
-  color: 8277eE;
+  color: #007bff; /* 파란색 */
+  text-decoration: underline; /* 밑줄 추가 */
 `;
