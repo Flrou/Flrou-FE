@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
@@ -22,6 +22,8 @@ const fadeIn = keyframes`
 const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+  height: 100%; /* 전체 높이 사용 */
 `;
 
 // 내 말풍선 스타일
@@ -111,6 +113,8 @@ const ChattingBubble = ({
   const [scolor, setScolor] = useState("");
   const id = localStorage.getItem("user_id");
 
+  const messagesEndRef = useRef(null); // 마지막 메시지 위치를 참조할 ref
+
   const isValidDate = (date) => {
     return date instanceof Date && !isNaN(date);
   };
@@ -153,13 +157,20 @@ const ChattingBubble = ({
     }
   }, [plan, isCalender]);
 
+  useEffect(() => {
+    // 메시지 리스트가 변경될 때마다 스크롤을 최신 메시지로 이동
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, scheduleMessage, todoMessage, success, isUpdateChatting]); // 의존성 배열에 모든 상태 추가
+
   const handleSave = async (selectedColor, title, startDate, endDate, notificationInterval) => {
     setScolor(selectedColor);
     const notification = notificationInterval !== null ? notificationInterval : 0;
 
     // Parse startDate and endDate
     const s_year = startDate.getFullYear();
-    const s_month = startDate.getMonth() + 1; 
+    const s_month = startDate.getMonth() + 1;
     const s_day = startDate.getDate();
     const s_hour = startDate.getHours();
     const s_minute = startDate.getMinutes();
@@ -227,14 +238,6 @@ const ChattingBubble = ({
                     <UpdateModalContainer key={index}>
                       <UpdateModal schedule={selectedSchedule} onClose={toggleUpdateModal} onSave={handleSave} isPopup={false} />
                     </UpdateModalContainer>
-                    {success && (
-                      <OpponentMessageContainer>
-                        <CharacterImage src={Character} alt="character" />
-                        <OpponentMessageBubble style={{ marginTop: "500px", left: "-70px" }} isMine={false}>
-                          {"일정 등록이 완료되었습니다"}
-                        </OpponentMessageBubble>
-                      </OpponentMessageContainer>
-                    )}
                   </div>
                 </OpponentMessageContainer>
               </>
@@ -296,6 +299,9 @@ const ChattingBubble = ({
             </>
           ),
         )}
+
+      {/* 마지막 메시지를 참조하여 스크롤 */}
+      <div ref={messagesEndRef} />
     </MessageContainer>
   );
 };
