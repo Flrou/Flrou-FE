@@ -33,7 +33,7 @@ const StyledButton = styled.button`
   @media screen and (max-width: 768px) {
     width: 96px;
     color: #000;
-    font-family: "Noto Sans KR";
+    font-family: Pretendard-Light;
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
