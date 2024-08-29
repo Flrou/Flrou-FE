@@ -11,7 +11,7 @@ import { LoginRequest } from "../../components/api/Login/LoginRequest";
 import { SignUpRequest } from "../../components/api/Login/SignUpRequest";
 
 // FCM
-import { messaging, getToken, firebaseApp } from "../../core/notification/firebase.config.mjs";
+import { messaging, getToken, firebaseApp, onAuthStateChanged, firebaseAuth } from "../../core/notification/firebase.config.mjs";
 import { registerServiceWorker } from "../../utils/notification";
 import axios from "axios";
 
@@ -76,9 +76,10 @@ const Index = () => {
       // 로그인 성공 시 응답에서 받은 사용자 아이디를 localStorage에 저장
       localStorage.setItem("user_id", response.data.user_id);
 
-      firebaseApp.auth().onAuthStateChanged(async (user) => {
+      onAuthStateChanged(firebaseAuth, async (user) => {
         if (user) {
-          // fcm device token 요청
+          // User is signed in
+          console.log("User is signed in:", user);
           const token = await getToken(messaging, {
             vapidKey: process.env.REACT_APP_VAPID_KEY,
           });
@@ -98,11 +99,10 @@ const Index = () => {
               },
             );
             console.log(res);
-            //if (res.data == "success") navigate("/chatting");
           }
         } else {
-          console.log("fcm authentication 실패");
-          // User is not signed in, handle the authentication
+          // No user is signed in
+          console.log("No user is signed in");
         }
       });
 
