@@ -9,13 +9,13 @@ import chatting from "../../assets/chatting.png";
 
 const BottomBarContainer = styled.div`
   width: 100%;
-  height: 70px;
+  height: 60px; /* 높이 조정 */
   background: linear-gradient(90deg, #b7e3e3 0%, #c3ddfa 100%);
   backdrop-filter: blur(2px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed; /* 화면의 아래쪽에 고정 */
+  position: fixed;
   bottom: 0;
   left: 0;
   padding: 0 20px;

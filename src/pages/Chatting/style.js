@@ -4,6 +4,10 @@ export const Container = styled.div`
   padding: 0 4vw;
   box-sizing: border-box;
   height: 100%;
+
+  @media (max-width: 768px) {
+    padding-bottom: 30px;
+  }
 `;
 
 export const ChatScreen = styled.div`
