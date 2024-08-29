@@ -39,7 +39,7 @@ const Calendar = () => {
     const fetchData = async () => {
       try {
         const currentMonth = moment(date);
-        const monthsToFetch = 12; 
+        const monthsToFetch = 12;
         const requests = [];
 
         for (let i = -monthsToFetch; i <= monthsToFetch; i++) {
@@ -122,7 +122,7 @@ const Calendar = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    setShowCalendarDetails(true); 
+    setShowCalendarDetails(true);
   };
 
   const handleCompleteToggle = async (scheduleId) => {
@@ -258,9 +258,9 @@ const Calendar = () => {
           />
         </StyledCalendarWrapper>
       </Container>
-      {showCalendarDetails && ( 
+      {showCalendarDetails && (
         <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-          <DetailContainer style={{ marginBottom: isMobile ? "50px" : 0 }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "20px" : 0 }}>
             {filteredSchedules.length > 0 && (
               <StyledScheduleContainer style={{ marginBottom: "5px" }}>
                 {filteredSchedules.map((schedule, index) => (

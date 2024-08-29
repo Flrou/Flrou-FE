@@ -7,6 +7,9 @@ export const Container = styled.div`
   height: 100%;
   padding: 0 4vw;
   box-sizing: border-box;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
 `;
 
 export const StyledCalendarWrapper = styled.div`
@@ -20,6 +23,7 @@ export const StyledCalendarWrapper = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    margin: 0px auto;
   }
 
   .react-calendar {
@@ -204,7 +208,7 @@ export const StyledCalendarWrapper = styled.div`
 
   @media (max-width: 768px) {
     .react-calendar__tile {
-      height: 90px; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
+      height: 70px; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
       font-size: 15px; /* 날짜 폰트 크기를 키움 */
     }
   }
@@ -314,6 +318,7 @@ export const StyledScheduleDetail = styled.div`
   }
 
   @media (max-width: 768px) {
+    margin-top: 10px;
     font-size: 16px;
     height: auto;
     padding: 8px;
