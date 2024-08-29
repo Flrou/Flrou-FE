@@ -224,27 +224,29 @@ const ChattingBubble = ({
             <CharacterImage src={Character} alt="character" />
             <OpponentMessageBubble isMine={false}>{"일정을 말씀해주세요~!"}</OpponentMessageBubble>
           </OpponentMessageContainer>
+
           {scheduleMessage.map((message, index) =>
             message.isMine ? (
               <MyMessageBubble key={index} isMine={true} textLength={message.text.length}>
                 {message.text}
               </MyMessageBubble>
             ) : (
-              <>
-                <OpponentMessageContainer style={{ display: "flex", alignItems: "flex-start" }}>
-                  <CharacterImage src={Character} alt="character" />
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <OpponentMessageBubble isMine={false}>{message.text}</OpponentMessageBubble>
-                    <UpdateModalContainer key={index}>
-                      <UpdateModal schedule={selectedSchedule} onClose={toggleUpdateModal} onSave={handleSave} isPopup={false} />
-                    </UpdateModalContainer>
-                  </div>
-                </OpponentMessageContainer>
-              </>
+              <OpponentMessageContainer key={index} style={{ display: "flex", alignItems: "flex-start" }}>
+                <CharacterImage src={Character} alt="character" />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <OpponentMessageBubble isMine={false}>{message.text}</OpponentMessageBubble>
+
+                  {/* UpdateModal이 항상 보이도록 수정 */}
+                  <UpdateModalContainer>
+                    <UpdateModal schedule={selectedSchedule} onClose={onClose} onSave={handleSave} isPopup={false} />
+                  </UpdateModalContainer>
+                </div>
+              </OpponentMessageContainer>
             ),
           )}
         </>
       )}
+
       {/* 할 일 메시지 */}
       {isTodo && (
         <>

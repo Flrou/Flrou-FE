@@ -7,6 +7,7 @@ import Chatting from "./pages/Chatting/index";
 import Calendar from "./pages/Calendar";
 import TodoList from "./pages/TodoList";
 import Graph from "./pages/Graph";
+import Setting from "./pages/Setting";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route exact path="/chatting" element={<Chatting />} />
           <Route exact path="/calendar" element={<Calendar />} />
           <Route exact path="/todo" element={<TodoList />} />
-          <Route exact path="/performanceChart" element={<Graph />} />{" "}
+          <Route exact path="/performanceChart" element={<Graph />} />
+          <Route exact path="/setting" element={<Setting />} />{" "}
         </Routes>
       </div>
     </Router>
