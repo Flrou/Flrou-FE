@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import detail_arrow from "../../assets/detail_arrow.png";
 import detail_close_arrow from "../../assets/detail_close_arrow.png";
 import "./DatePicker.css";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   if (!schedule) return null;
@@ -17,6 +18,19 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   const [selectedEndDate, setSelectedEndDate] = useState(new Date(schedule.endDate));
   const [notificationInterval, setNotificationInterval] = useState(null);
   const [alarm, setAlarm] = useState(schedule.alarm);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
+  const isMobile768 = useIsMobile();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 400);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setTitle(schedule.title);
@@ -57,7 +71,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     borderRadius: "10px",
     background: "#fff",
     zIndex: 999,
-    width: isPopup ? "350px" : "250px",
+    width: isPopup ? "50vw" : "40vw",
     height: "auto",
     position: isPopup ? "fixed" : "absolute",
     top: isPopup ? "50%" : "0%",
@@ -74,7 +88,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     background: "#FFF",
     fontWeight: "500",
     boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-    padding: "10px 20px",
+    padding: isMobile ? "5px 10px" : "10px 20px",
     cursor: "pointer",
     // marginTop: "10px",
   };
@@ -83,14 +97,14 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     ...buttonStyle,
     background: "#84B3FA",
     color: "#FFF",
-    marginRight: "30px",
+    marginRight: isMobile ? "10px" : "30px",
   };
 
   const deleteButtonStyle = {
     ...buttonStyle,
     background: "#FD6A6A",
     color: "#FFF",
-    marginRight: "30px",
+    marginRight: isMobile ? "10px" : "30px",
   };
 
   const closeBtnStyle = {
@@ -116,17 +130,17 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   const ColorContainer = {
     ...buttonStyle,
     marginBottom: "0px",
-    paddingRight: "4px"
+    paddingRight: "4px",
   };
 
   const colorButtonStyle = (color) => ({
-    width: "30px",
-    height: "30px",
+    width: isMobile768 ? "20px" : "30px",
+    height: isMobile768 ? "20px" : "30px",
     borderRadius: "50%",
     border: `2px solid ${color === selectedColor ? "#1d2d44" : "#fff"}`,
     background: color,
     cursor: "pointer",
-    margin: "8px",
+    margin: isMobile768 ? "5px" : "8px",
     pointerEvents: color === selectedColor ? "none" : "auto", // 클릭된 색상은 다시 클릭되지 않도록 설정
   });
 
@@ -197,7 +211,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
         <div style={{ display: "flex", position: "relative", textAlign: "left" }}>
           <button style={{ ...ColorContainer, background: selectedColor || "#FFF" }} onClick={() => setDropdownOpen(!dropdownOpen)}>
             색상 선택
-            <img src={dropdownOpen ? detail_close_arrow : detail_arrow} style={{ marginLeft: "10px", width: '10px' }} alt="자세히 보기" />
+            <img src={dropdownOpen ? detail_close_arrow : detail_arrow} style={{ marginLeft: "10px", width: "10px" }} alt="자세히 보기" />
           </button>
           {dropdownOpen && (
             <div
@@ -208,9 +222,12 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
                 transform: "translateX(-50%)",
                 backgroundColor: "#fff",
                 boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
-                padding: "5px",
+                padding: isMobile768 ? "2px" : "5px",
                 zIndex: 999,
-                width: "200px",
+                width: isMobile768 ? "150px" : "200px",
+                height: "auto",
+                overflowY: "auto", // Y축 스크롤을 자동으로 생성
+                overflow: "scroll",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "space-between",
