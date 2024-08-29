@@ -12,6 +12,9 @@ const Backdrop = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 997;
+  @media (max-width: 768px) {
+    height: 80%;
+  }
 `;
 
 const Modal = styled.div`
@@ -103,6 +106,11 @@ const WarningMessage = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
 `;
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {
