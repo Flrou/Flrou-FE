@@ -82,7 +82,7 @@ const BottomBar = () => {
         <Icon src={graph} />
         그래프
       </Button>
-      <Button to="/settings">
+      <Button to="/setting">
         <Icon src={setting} />
         환경설정
       </Button>

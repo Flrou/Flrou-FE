@@ -54,7 +54,8 @@ const MyMessageBubble = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
+    padding: 7px;
   }
 `;
 
@@ -160,9 +161,12 @@ const ChattingBubble = ({
   useEffect(() => {
     // 메시지 리스트가 변경될 때마다 스크롤을 최신 메시지로 이동
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      // 페이지가 로드되고 메시지가 업데이트되면 실행
+      setTimeout(() => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 100); // 100ms 지연을 주어 렌더링이 모두 완료된 후 스크롤이 이동되도록 설정
     }
-  }, [messages, scheduleMessage, todoMessage, success, isUpdateChatting]); // 의존성 배열에 모든 상태 추가
+  }, [messages, scheduleMessage, todoMessage, isUpdateChatting]);
 
   const handleSave = async (selectedColor, title, startDate, endDate, notificationInterval) => {
     setScolor(selectedColor);
@@ -224,6 +228,7 @@ const ChattingBubble = ({
             <CharacterImage src={Character} alt="character" />
             <OpponentMessageBubble isMine={false}>{"일정을 말씀해주세요~!"}</OpponentMessageBubble>
           </OpponentMessageContainer>
+
           {scheduleMessage.map((message, index) =>
             message.isMine ? (
               <MyMessageBubble key={index} isMine={true} textLength={message.text.length}>
@@ -245,6 +250,7 @@ const ChattingBubble = ({
           )}
         </>
       )}
+
       {/* 할 일 메시지 */}
       {isTodo && (
         <>

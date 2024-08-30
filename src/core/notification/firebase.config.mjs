@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import { onBackgroundMessage } from "firebase/messaging/sw"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onBackgroundMessage } from "firebase/messaging/sw";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -18,6 +19,6 @@ export const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
-const analytics = getAnalytics(firebaseApp);
+const firebaseAuth = getAuth(firebaseApp);
 
-export { firebaseApp, messaging, onMessage, onBackgroundMessage, getToken }
+export { firebaseApp, messaging, firebaseAuth, onMessage, onBackgroundMessage, getToken, onAuthStateChanged };

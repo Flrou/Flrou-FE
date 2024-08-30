@@ -13,6 +13,10 @@ const HeaderContainer = styled.header`
   align-items: center;
   position: relative;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    height: 8vh;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -47,7 +51,7 @@ const LogoText = styled.span`
   letter-spacing: 1.28px;
 
   @media (max-width: 768px) {
-    font-size: 48px; /* 모바일 버전에서 로고 텍스트 크기 줄이기 */
+    font-size: 30px; /* 모바일 버전에서 로고 텍스트 크기 줄이기 */
   }
 `;
 

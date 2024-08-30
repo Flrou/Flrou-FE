@@ -11,7 +11,7 @@ import { LoginRequest } from "../../components/api/Login/LoginRequest";
 import { SignUpRequest } from "../../components/api/Login/SignUpRequest";
 
 // FCM
-import { messaging, getToken } from "../../core/notification/firebase.config.mjs";
+import { messaging, getToken, firebaseApp, onAuthStateChanged, firebaseAuth } from "../../core/notification/firebase.config.mjs";
 import { registerServiceWorker } from "../../utils/notification";
 import axios from "axios";
 
@@ -76,30 +76,59 @@ const Index = () => {
       // 로그인 성공 시 응답에서 받은 사용자 아이디를 localStorage에 저장
       localStorage.setItem("user_id", response.data.user_id);
 
-      // fcm device token 요청
-      const token = await getToken(messaging, {
-        vapidKey: process.env.REACT_APP_VAPID_KEY,
+      onAuthStateChanged(firebaseAuth, async (user) => {
+        if (user) {
+          // User is signed in
+          console.log("User is signed in:", user);
+          const token = await getToken(messaging, {
+            vapidKey: process.env.REACT_APP_VAPID_KEY,
+          });
+          if (token) {
+            // DB에 토큰 저장
+            const res = await axios.post(
+              "https://api.flrou.site/user/setDeviceToken",
+              {
+                user_id: response.data.user_id,
+                token: token,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                withCredentials: true,
+              },
+            );
+            console.log(res);
+          }
+        } else {
+          // No user is signed in
+          console.log("No user is signed in");
+        }
       });
-      if (token) {
-        // DB에 토큰 저장
-        const res = await axios.post(
-          "https://api.flrou.site/user/setDeviceToken",
-          {
-            user_id: response.data.user_id,
-            token: token,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          },
-        );
-        console.log(res);
-        //if (res.data == "success") navigate("/chatting");
-      }
+
+      // fcm device token 요청
+      // const token = await getToken(messaging, {
+      //   vapidKey: process.env.REACT_APP_VAPID_KEY,
+      // });
+      // if (token) {
+      //   // DB에 토큰 저장
+      //   const res = await axios.post(
+      //     "https://api.flrou.site/user/setDeviceToken",
+      //     {
+      //       user_id: response.data.user_id,
+      //       token: token,
+      //     },
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       withCredentials: true,
+      //     },
+      //   );
+      //   console.log(res);
+      //   //if (res.data == "success") navigate("/chatting");
+      // }
       navigate("/chatting");
-      
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     }
