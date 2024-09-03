@@ -324,10 +324,15 @@ export const StyledScheduleDetail = styled.div`
   }
 
   @media (max-width: 768px) {
+    
     margin-top: 10px;
     font-size: 16px;
     height: auto;
     padding: 8px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     img {
       width: 30px;

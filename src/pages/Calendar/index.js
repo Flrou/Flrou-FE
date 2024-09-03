@@ -280,7 +280,7 @@ const Calendar = () => {
       </Container>
       {showCalendarDetails && (
         <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-          <DetailContainer style={{ marginBottom: isMobile ? "20px" : 0 }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "70px" : 0 }}>
             {filteredSchedules.length > 0 && (
               <StyledScheduleContainer style={{ marginBottom: "5px" }}>
                 {filteredSchedules.map((schedule, index) => (
@@ -297,7 +297,18 @@ const Calendar = () => {
                           hour12: false,
                         })}`}
                       </span>
-                      <span style={{ width: "100px", marginLeft: "50px" }}>{schedule.title}</span>
+                      <span
+                        style={{
+                          width: isMobile ? "100px" : "200px",
+                          marginLeft: "50px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          display: "inline-block",
+                        }}
+                      >
+                        {schedule.title}
+                      </span>
                     </div>
                     <img
                       src={schedule.isDone ? toggle_on : toggle_off}
