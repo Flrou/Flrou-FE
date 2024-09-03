@@ -23,6 +23,15 @@ import BottomBar from "../../components/Link/BottomMenu";
 import useIsMobile from "../../hooks/useIsMobile";
 import Background from "../../layout/Background";
 
+const holidays = [
+  "2024-09-17", // 추석 연휴
+  "2024-09-18", // 추석
+  "2024-09-19", // 추석 연휴
+  "2024-10-03", // 개천절
+  "2024-10-09", // 한글날
+  "2024-12-25", // 성탄절
+];
+
 const Calendar = () => {
   const today = new Date();
   const [date, setDate] = useState(today);
@@ -111,10 +120,7 @@ const Calendar = () => {
   const handleDayClick = (value) => {
     console.log(value);
     const filter_schedules = schedules.filter(
-      (schedule) =>
-        moment(value).isSame(schedule.startDate, "day") ||
-        moment(value).isSame(schedule.endDate, "day") ||
-        (moment(value).isAfter(schedule.startDate, "day") && moment(value).isBefore(schedule.endDate, "day")),
+      (schedule) => moment(value).isSameOrAfter(schedule.startDate, "day") && moment(value).isSameOrBefore(schedule.endDate, "day"),
     );
 
     setFilteredSchedules(filter_schedules);
@@ -171,6 +177,12 @@ const Calendar = () => {
     } catch (error) {
       console.error("일정을 삭제하는 중 오류 발생:", error);
     }
+  };
+
+  const isHoliday = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    const isHoliday = holidays.includes(formattedDate);
+    return isHoliday;
   };
 
   const saveSchedule = async (colorIndex, title, startDate, endDate, notificationInterval) => {
@@ -240,6 +252,11 @@ const Calendar = () => {
               setShowCalendarDetails(false); // Hide details when navigating between months
             }}
             onClickDay={handleDayClick}
+            tileClassName={({ date, view }) => {
+              const isHolidayDate = isHoliday(date);
+              console.log(`Date: ${date}, isHoliday: ${isHolidayDate}`);
+              return view === "month" && isHolidayDate ? "holiday" : null;
+            }}
             tileContent={({ date }) => {
               const matchingSchedules = schedules.filter((schedule) =>
                 moment(date).isBetween(schedule.startDate, schedule.endDate, "day", "[]"),
@@ -260,7 +277,7 @@ const Calendar = () => {
       </Container>
       {showCalendarDetails && (
         <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-          <DetailContainer style={{ marginBottom: isMobile ? "20px" : 0 }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "70px" : 0 }}>
             {filteredSchedules.length > 0 && (
               <StyledScheduleContainer style={{ marginBottom: "5px" }}>
                 {filteredSchedules.map((schedule, index) => (
@@ -277,7 +294,18 @@ const Calendar = () => {
                           hour12: false,
                         })}`}
                       </span>
-                      <span style={{ width: "100px", marginLeft: "50px" }}>{schedule.title}</span>
+                      <span
+                        style={{
+                          width: isMobile ? "100px" : "200px",
+                          marginLeft: "50px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          display: "inline-block",
+                        }}
+                      >
+                        {schedule.title}
+                      </span>
                     </div>
                     <img
                       src={schedule.isDone ? toggle_on : toggle_off}

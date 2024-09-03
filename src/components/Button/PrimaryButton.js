@@ -31,7 +31,7 @@ const StyledButton = styled.button`
 
   /* 모바일 화면에서 숨김 */
   @media screen and (max-width: 768px) {
-    width: 96px;
+    width: auto;
     color: #000;
     font-family: Pretendard-Light;
     font-size: 12px;

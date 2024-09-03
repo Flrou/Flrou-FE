@@ -197,6 +197,12 @@ export const StyledCalendarWrapper = styled.div`
     color: #2ed4eb; /* 활성화된 날짜의 텍스트 색상 */
   }
 
+  /* 공휴일 날짜 텍스트 색상 빨간색 */
+  .holiday abbr {
+    color: red !important;
+    font-weight: bold;
+  }
+
   /* 선택한 날짜 스타일 적용 */
   .react-calendar__tile--active {
     position: relative; /* 상대 위치 지정 */
@@ -208,7 +214,7 @@ export const StyledCalendarWrapper = styled.div`
 
   @media (max-width: 768px) {
     .react-calendar__tile {
-      height: 70px; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
+      height: auto; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
       font-size: 15px; /* 날짜 폰트 크기를 키움 */
     }
   }
@@ -318,10 +324,15 @@ export const StyledScheduleDetail = styled.div`
   }
 
   @media (max-width: 768px) {
+    
     margin-top: 10px;
     font-size: 16px;
     height: auto;
     padding: 8px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     img {
       width: 30px;
