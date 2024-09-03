@@ -208,7 +208,7 @@ export const StyledCalendarWrapper = styled.div`
 
   @media (max-width: 768px) {
     .react-calendar__tile {
-      height: 70px; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
+      height: auto; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
       font-size: 15px; /* 날짜 폰트 크기를 키움 */
     }
   }
