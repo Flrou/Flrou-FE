@@ -120,10 +120,7 @@ const Calendar = () => {
   const handleDayClick = (value) => {
     console.log(value);
     const filter_schedules = schedules.filter(
-      (schedule) =>
-        moment(value).isSame(schedule.startDate, "day") ||
-        moment(value).isSame(schedule.endDate, "day") ||
-        (moment(value).isAfter(schedule.startDate, "day") && moment(value).isBefore(schedule.endDate, "day")),
+      (schedule) => moment(value).isSameOrAfter(schedule.startDate, "day") && moment(value).isSameOrBefore(schedule.endDate, "day"),
     );
 
     setFilteredSchedules(filter_schedules);
