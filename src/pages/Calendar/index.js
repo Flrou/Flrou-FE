@@ -23,6 +23,15 @@ import BottomBar from "../../components/Link/BottomMenu";
 import useIsMobile from "../../hooks/useIsMobile";
 import Background from "../../layout/Background";
 
+const holidays = [
+  "2024-09-17", // 추석 연휴
+  "2024-09-18", // 추석
+  "2024-09-19", // 추석 연휴
+  "2024-10-03", // 개천절
+  "2024-10-09", // 한글날
+  "2024-12-25", // 성탄절
+];
+
 const Calendar = () => {
   const today = new Date();
   const [date, setDate] = useState(today);
@@ -173,6 +182,12 @@ const Calendar = () => {
     }
   };
 
+  const isHoliday = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    const isHoliday = holidays.includes(formattedDate);
+    return isHoliday;
+  };
+
   const saveSchedule = async (colorIndex, title, startDate, endDate, notificationInterval) => {
     try {
       const id = selectedSchedule.id;
@@ -240,6 +255,11 @@ const Calendar = () => {
               setShowCalendarDetails(false); // Hide details when navigating between months
             }}
             onClickDay={handleDayClick}
+            tileClassName={({ date, view }) => {
+              const isHolidayDate = isHoliday(date);
+              console.log(`Date: ${date}, isHoliday: ${isHolidayDate}`);
+              return view === "month" && isHolidayDate ? "holiday" : null;
+            }}
             tileContent={({ date }) => {
               const matchingSchedules = schedules.filter((schedule) =>
                 moment(date).isBetween(schedule.startDate, schedule.endDate, "day", "[]"),

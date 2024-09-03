@@ -197,6 +197,12 @@ export const StyledCalendarWrapper = styled.div`
     color: #2ed4eb; /* 활성화된 날짜의 텍스트 색상 */
   }
 
+  /* 공휴일 날짜 텍스트 색상 빨간색 */
+  .holiday abbr {
+    color: red !important;
+    font-weight: bold;
+  }
+
   /* 선택한 날짜 스타일 적용 */
   .react-calendar__tile--active {
     position: relative; /* 상대 위치 지정 */
