@@ -36,7 +36,46 @@ const Calendar = () => {
   const today = new Date();
   const [date, setDate] = useState(today);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
-  const [schedules, setSchedules] = useState([]);
+  const initialSchedules = [
+    {
+      id: 1,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 0),
+      endDate: "2024-09-08",
+      title: "Morning Meeting",
+      color: "#ff4d6d",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 2,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 0),
+      title: "Lunch with Team",
+      color: "#72efdd",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 3,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 17, 0),
+      title: "Project Discussion",
+      color: "#4cc9f0",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 4,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 10, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 11, 0),
+      title: "Client Call",
+      color: "#c77dff",
+      isDone: false,
+      alarm: true,
+    },
+  ];
+
+  const [schedules, setSchedules] = useState(initialSchedules);
   const [filteredSchedules, setFilteredSchedules] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
@@ -76,7 +115,19 @@ const Calendar = () => {
         }));
 
         setSchedules(secondFormatDataArray);
-        setFilteredSchedules(secondFormatDataArray.filter((schedule) => moment(date).isSame(schedule.startDate, "day")));
+        setFilteredSchedules(
+          secondFormatDataArray.filter((schedule) => {
+            const isSingleDayEvent = moment(schedule.startDate).isSame(schedule.endDate, "day"); // 하루 일정인지 확인
+            const isSameDay = moment(date).isSame(schedule.startDate, "day"); // 하루 일정에서 클릭한 날짜와 시작 날짜가 같은지 확인
+            const isWithinRange = moment(date).isBetween(
+              moment(schedule.startDate).startOf("day"),
+              moment(schedule.endDate).endOf("day"),
+              null,
+              "[]",
+            );
+            return isSingleDayEvent ? isSameDay : isWithinRange;
+          }),
+        );
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -254,7 +305,6 @@ const Calendar = () => {
             onClickDay={handleDayClick}
             tileClassName={({ date, view }) => {
               const isHolidayDate = isHoliday(date);
-              console.log(`Date: ${date}, isHoliday: ${isHolidayDate}`);
               return view === "month" && isHolidayDate ? "holiday" : null;
             }}
             tileContent={({ date }) => {
@@ -276,8 +326,8 @@ const Calendar = () => {
         </StyledCalendarWrapper>
       </Container>
       {showCalendarDetails && (
-        <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-          <DetailContainer style={{ marginBottom: isMobile ? "70px" : 0 }}>
+        <div style={{ backgroundColor: "#e9f2ff", height: "330px", overflowY: "auto" }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "auto" : 0 }}>
             {filteredSchedules.length > 0 && (
               <StyledScheduleContainer style={{ marginBottom: "5px" }}>
                 {filteredSchedules.map((schedule, index) => (

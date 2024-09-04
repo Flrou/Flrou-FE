@@ -8,7 +8,7 @@ export const Container = styled.div`
   padding: 0 4vw;
   box-sizing: border-box;
   @media (max-width: 768px) {
-    height: 550px;
+    height: auto;
   }
 `;
 
@@ -271,6 +271,7 @@ export const StyledSchedule = styled.div`
 
 export const DetailContainer = styled.div`
   width: 100%;
+  height: 100%; /* 부모 요소의 높이에 맞게 설정 */
   background-color: #e9f2ff;
   display: flex;
   justify-content: space-between; /* 텍스트 일렬 정렬 및 일정한 간격 */
@@ -278,6 +279,7 @@ export const DetailContainer = styled.div`
   @media (max-width: 768px) {
     margin-top: 0px;
     padding: 10px 0;
+    height: auto; /* 작은 화면에서는 auto로 설정 */
   }
 `;
 
@@ -292,7 +294,7 @@ export const StyledScheduleContainer = styled.div`
   width: 80%;
   justify-content: center;
   margin: auto;
-  max-height: auto;
+  height: 100%; /* 부모 요소의 높이에 맞게 설정 */
 `;
 
 export const StyledScheduleDetail = styled.div`
@@ -324,14 +326,12 @@ export const StyledScheduleDetail = styled.div`
   }
 
   @media (max-width: 768px) {
-    
     margin-top: 10px;
     font-size: 16px;
     height: auto;
     padding: 8px;
 
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 
     img {
