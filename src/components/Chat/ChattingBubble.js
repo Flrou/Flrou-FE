@@ -40,7 +40,7 @@ const MyMessageBubble = styled.div`
   text-align: start;
   color: #2c2c2c;
   font-family: Pretendard-Light;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 500;
   line-height: 1.5;
