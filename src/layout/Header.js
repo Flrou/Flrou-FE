@@ -26,7 +26,7 @@ const FlexContainer = styled.div`
 
 const SideBarButton = styled.img`
   z-index: 1;
-  width: 2.3vw;
+  width: auto;
   height: 3.2vh;
   min-width: 30px;
   min-height: 21px;
@@ -34,6 +34,8 @@ const SideBarButton = styled.img`
 
   @media (max-width: 768px) {
     display: none;
+    width: 2.3vw;
+    height: 3.2vh;
   }
 `;
 
@@ -44,14 +46,14 @@ const LogoText = styled.span`
     0 0 3px #329cfe;
   color: #fff;
   font-family: Coiny;
-  font-size: 64px;
+  font-size: 5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: 1.28px;
 
   @media (max-width: 768px) {
-    font-size: 30px; /* 모바일 버전에서 로고 텍스트 크기 줄이기 */
+    font-size: 1.875rem; /* 모바일 버전에서 로고 텍스트 크기 줄이기 */
   }
 `;
 

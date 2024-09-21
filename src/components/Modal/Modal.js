@@ -24,7 +24,7 @@ export const ModalContent = styled.div`
 
 export const ModalTitle = styled.h2`
   margin-bottom: 30px;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-family: "Coiny";
   text-align: center;
 
@@ -33,7 +33,7 @@ export const ModalTitle = styled.h2`
     0 0 3px #9dbafe,
     0 0 3px #9dbafe;
   color: #329cfe;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -49,7 +49,7 @@ export const ModalInput = styled.input`
   border-radius: 4px;
   box-sizing: border-box;
   border-color: #7ec2dd;
-  font-size: 18px;
+  font-size: 1.2rem;
 `;
 
 export const ModalButton = styled.button`
@@ -63,7 +63,7 @@ export const ModalButton = styled.button`
   color: #2c2c2c;
   cursor: pointer;
   font-family: Pretendard-Regular;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 500;
   letter-spacing: 0.14px;
@@ -75,7 +75,7 @@ export const ModalButton = styled.button`
 
 export const ModalText = styled.span`
   width: 100%;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: right;
   display: block;
   margin-top: 10px;

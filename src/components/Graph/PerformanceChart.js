@@ -37,8 +37,11 @@ const Modal = styled.div`
 
 const Paragraph = styled.p`
   margin: 10px 0;
-  font-size: 18px;
+  font-size: 2.5em;
   font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const BlueText = styled.span`
@@ -53,7 +56,7 @@ const StyledImage = styled.img`
 
 const Text = styled.p`
   margin: 10px 0 20px;
-  font-size: 14px;
+  font-size: 0.9rem;
   line-height: 1.5;
 `;
 
@@ -65,7 +68,7 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
 
   &:hover {
     background-color: ${(props) => (props.warning ? "#c9302c" : "#5079c6")};
@@ -85,7 +88,7 @@ const ToggleButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.9rem;
 
   &:hover {
     background-color: ${(props) => (props.active ? (props.warning ? "#ac2925" : "#5079c6") : props.warning ? "#f1b0b7" : "#ccc")};
@@ -103,6 +106,11 @@ const WarningMessage = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
 `;
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {

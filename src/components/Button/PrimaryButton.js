@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 const StyledButton = styled.button`
   display: flex;
-  width: 14.6vw;
-  height: 5.3vh;
+  width: 19.6vw;
+  height: 6.3vh;
   max-height: 55px;
   padding: 7px 16px;
   justify-content: center;
@@ -18,8 +18,8 @@ const StyledButton = styled.button`
 
   color: #4e4d4d;
   font-family: Pretendard-Light;
-  font-size: 18px;
-  font-style: normal;
+  font-size: 2.5rem;
+  font-style: bold;
   font-weight: 600;
   line-height: normal;
 
@@ -31,10 +31,11 @@ const StyledButton = styled.button`
 
   /* 모바일 화면에서 숨김 */
   @media screen and (max-width: 768px) {
-    width: 96px;
+    width: auto;
+    height: 5.3vh;
     color: #000;
     font-family: Pretendard-Light;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

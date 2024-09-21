@@ -11,7 +11,7 @@ export const KakaoLoginButton = styled(WelcomeButton)`
   color: #2a2a2a;
   text-align: center;
   font-family: Pretendard-Regular;
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -37,7 +37,7 @@ export const FlrouLogin = styled(WelcomeButton)`
 
   color: #fff;
   font-family: Pretendard-Regular;
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;

@@ -17,7 +17,7 @@ export const TodoSubject = styled.div`
   justify-content: ${(props) => props.isMobile? 'start' : 'center'};
   text-shadow: ${(props) => props.isMobile? '0 2px 2px gray' : '0px 4px 4px gray'};
   font-family: Coiny;
-  font-size: ${(props) => props.isMobile ? '24px' : '44px'};
+  font-size: ${(props) => props.isMobile ? '0.6875rem' : '2.75rem'};
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -62,7 +62,7 @@ export const TodoList = styled.div`
 export const TodoContent = styled.div`
   width: calc(100% - 8vh);
   height: 100%;
-  font-size: ${(props) => props.isMobile ? '16px' : '20px'};
+  font-size: ${(props) => props.isMobile ? '1rem' : '1.25rem'};
   display: flex; align-items: center;
   padding: ${(props) => props.isMobile ? '0 20px 0 5px' : '0 20px 0 10px'};
   overflow: hidden;
@@ -72,7 +72,7 @@ export const TodoContent = styled.div`
     margin: 0; padding: 0;
     border: none;
     outline: none;
-    font-size: ${(props) => props.isMobile ? '16px' : '20px'};
+    font-size: ${(props) => props.isMobile ? '1rem' : '1.25rem'};
   }
 `
 
@@ -93,7 +93,7 @@ export const TodoButton2 = styled.div`
     width: 40px;
     display: flex; justify-content: center; align-items: center;
     text-shadow: ${(props) => props.isMobile? '0 2px 2px gray' : '0px 4px 4px gray'};
-    font-size: ${(props) => props.isMobile ? '24px' : '34px'};
+    font-size: ${(props) => props.isMobile ? '1.5625rem' : '2.125rem'};
     font-style: normal;
     font-weight: bold;
     line-height: normal;

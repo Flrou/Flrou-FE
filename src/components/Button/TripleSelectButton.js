@@ -6,7 +6,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 150px;
+  width: 300px;
   height: auto;
   background-color: #f2f5f2;
   gap: 15px;
@@ -14,23 +14,28 @@ const ButtonContainer = styled.div`
   color: var(--Sub-Font, #b0b0b0);
   text-align: center;
   font-family: Pretendard-Light;
-  font-size: 14px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 50px;
+
+  @media (max-width: 768px) {
+    width: 150px;
+  }
 `;
 
 const StyledButton = styled.button`
   display: flex;
   width: auto;
-  height: 21px;
+  height: auto;
   padding: 6px 12px;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  font-size: 2rem;
 
   border-radius: 8px;
   background: #329cfe;
@@ -47,6 +52,11 @@ const StyledButton = styled.button`
       border: 1px solid #b0b0b0;
       color: #b0b0b0;
     `};
+
+  @media (max-width: 768px) {
+    height: 21px;
+    font-size: 0.875rem;
+  }
 `;
 
 const TripleSelectButton = ({ options, onClick, activeOption }) => {
