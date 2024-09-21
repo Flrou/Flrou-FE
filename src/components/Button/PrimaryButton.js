@@ -18,7 +18,7 @@ const StyledButton = styled.button`
 
   color: #4e4d4d;
   font-family: Pretendard-Light;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-style: bold;
   font-weight: 600;
   line-height: normal;

@@ -40,10 +40,10 @@ const Modal = styled.div`
 
 const Paragraph = styled.p`
   margin: 10px 0;
-  font-size: 2.5em;
+  font-size: 2rem;
   font-weight: bold;
   @media (max-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 `;
 
@@ -100,6 +100,7 @@ const ToggleButton = styled.button`
 
 const WarningMessage = styled.div`
   margin-bottom: 30px;
+  font-size: 1.3rem;
   padding: 15px;
   background-color: ${(props) => (props.warning ? "#ffefef" : "#cce8f4")};
   color: ${(props) => (props.warning ? "#d9534f" : "#66a0da")};

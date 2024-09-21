@@ -46,7 +46,7 @@ const LogoText = styled.span`
     0 0 3px #329cfe;
   color: #fff;
   font-family: Coiny;
-  font-size: 5rem;
+  font-size: 4rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
