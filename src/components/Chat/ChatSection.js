@@ -28,7 +28,11 @@ const StyledInput = styled.input`
   outline: none;
 
   @media screen and (max-width: 768px) {
+    height: auto;
+    padding-top: 3px;
+    padding-bottom: 3px;
     /* margin-bottom: 100px; */
+    font-size: 18px;
   }
 `;
 

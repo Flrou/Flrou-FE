@@ -7,6 +7,9 @@ export const Container = styled.div`
   height: 100%;
   padding: 0 4vw;
   box-sizing: border-box;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export const StyledCalendarWrapper = styled.div`
@@ -20,6 +23,7 @@ export const StyledCalendarWrapper = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    margin: 0px auto;
   }
 
   .react-calendar {
@@ -212,6 +216,12 @@ export const StyledCalendarWrapper = styled.div`
     color: #2ed4eb; /* 활성화된 날짜의 텍스트 색상 */
   }
 
+  /* 공휴일 날짜 텍스트 색상 빨간색 */
+  .holiday abbr {
+    color: red !important;
+    font-weight: bold;
+  }
+
   /* 선택한 날짜 스타일 적용 */
   .react-calendar__tile--active {
     position: relative; /* 상대 위치 지정 */
@@ -280,6 +290,7 @@ export const StyledSchedule = styled.div`
 
 export const DetailContainer = styled.div`
   width: 100%;
+  height: 100%; /* 부모 요소의 높이에 맞게 설정 */
   background-color: #e9f2ff;
   display: flex;
   justify-content: space-between; /* 텍스트 일렬 정렬 및 일정한 간격 */
@@ -287,6 +298,7 @@ export const DetailContainer = styled.div`
   @media (max-width: 768px) {
     margin-top: 0px;
     padding: 10px 0;
+    height: auto; /* 작은 화면에서는 auto로 설정 */
   }
 `;
 
@@ -301,7 +313,7 @@ export const StyledScheduleContainer = styled.div`
   width: 80%;
   justify-content: center;
   margin: auto;
-  max-height: auto;
+  height: 100%; /* 부모 요소의 높이에 맞게 설정 */
 `;
 
 export const StyledScheduleDetail = styled.div`
@@ -337,6 +349,9 @@ export const StyledScheduleDetail = styled.div`
     font-size: 16px;
     height: auto;
     padding: 8px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     img {
       width: 30px;

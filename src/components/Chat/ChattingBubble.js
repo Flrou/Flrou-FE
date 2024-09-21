@@ -161,9 +161,12 @@ const ChattingBubble = ({
   useEffect(() => {
     // 메시지 리스트가 변경될 때마다 스크롤을 최신 메시지로 이동
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      // 페이지가 로드되고 메시지가 업데이트되면 실행
+      setTimeout(() => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 100); // 100ms 지연을 주어 렌더링이 모두 완료된 후 스크롤이 이동되도록 설정
     }
-  }, [messages, scheduleMessage, todoMessage, success, isUpdateChatting]); // 의존성 배열에 모든 상태 추가
+  }, [messages, scheduleMessage, todoMessage, isUpdateChatting]);
 
   const handleSave = async (selectedColor, title, startDate, endDate, notificationInterval) => {
     setScolor(selectedColor);
@@ -232,17 +235,17 @@ const ChattingBubble = ({
                 {message.text}
               </MyMessageBubble>
             ) : (
-              <OpponentMessageContainer key={index} style={{ display: "flex", alignItems: "flex-start" }}>
-                <CharacterImage src={Character} alt="character" />
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <OpponentMessageBubble isMine={false}>{message.text}</OpponentMessageBubble>
-
-                  {/* UpdateModal이 항상 보이도록 수정 */}
-                  <UpdateModalContainer>
-                    <UpdateModal schedule={selectedSchedule} onClose={onClose} onSave={handleSave} isPopup={false} />
-                  </UpdateModalContainer>
-                </div>
-              </OpponentMessageContainer>
+              <>
+                <OpponentMessageContainer style={{ display: "flex", alignItems: "flex-start" }}>
+                  <CharacterImage src={Character} alt="character" />
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <OpponentMessageBubble isMine={false}>{message.text}</OpponentMessageBubble>
+                    <UpdateModalContainer key={index}>
+                      <UpdateModal schedule={selectedSchedule} onClose={toggleUpdateModal} onSave={handleSave} isPopup={false} />
+                    </UpdateModalContainer>
+                  </div>
+                </OpponentMessageContainer>
+              </>
             ),
           )}
         </>

@@ -23,11 +23,72 @@ import BottomBar from "../../components/Link/BottomMenu";
 import useIsMobile from "../../hooks/useIsMobile";
 import Background from "../../layout/Background";
 
+const holidays = [
+  "2024-01-01", // 신정
+  "2024-02-09", // 설날 연휴 시작
+  "2024-02-10", // 설날
+  "2024-02-11", // 설날 연휴 끝
+  "2024-02-12", // 설날 대체공휴일
+  "2024-03-01", // 삼일절
+  "2024-04-10", // 22대 국회의원 선거
+  "2024-05-05", // 어린이날
+  "2024-05-06", // 어린이날 대체공휴일
+  "2024-05-15", // 부처님오신날
+  "2024-06-06", // 현충일
+  "2024-08-15", // 광복절
+  "2024-09-16", // 추석 연휴
+  "2024-09-17", // 추석
+  "2024-09-18", // 추석 연휴
+  "2024-10-01", // 국군의 날
+  "2024-10-03", // 개천절
+  "2024-10-09", // 한글날
+  "2024-12-25", // 성탄절
+];
+
 const Calendar = () => {
   const today = new Date();
   const [date, setDate] = useState(today);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
-  const [schedules, setSchedules] = useState([]);
+  const initialSchedules = [
+    {
+      id: 1,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 0),
+      endDate: "2024-09-08",
+      title: "Morning Meeting",
+      color: "#ff4d6d",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 2,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 0),
+      title: "Lunch with Team",
+      color: "#72efdd",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 3,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 17, 0),
+      title: "Project Discussion",
+      color: "#4cc9f0",
+      isDone: false,
+      alarm: true,
+    },
+    {
+      id: 4,
+      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 10, 0),
+      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 11, 0),
+      title: "Client Call",
+      color: "#c77dff",
+      isDone: false,
+      alarm: true,
+    },
+  ];
+
+  const [schedules, setSchedules] = useState(initialSchedules);
   const [filteredSchedules, setFilteredSchedules] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
@@ -39,7 +100,7 @@ const Calendar = () => {
     const fetchData = async () => {
       try {
         const currentMonth = moment(date);
-        const monthsToFetch = 12; 
+        const monthsToFetch = 12;
         const requests = [];
 
         for (let i = -monthsToFetch; i <= monthsToFetch; i++) {
@@ -67,7 +128,19 @@ const Calendar = () => {
         }));
 
         setSchedules(secondFormatDataArray);
-        setFilteredSchedules(secondFormatDataArray.filter((schedule) => moment(date).isSame(schedule.startDate, "day")));
+        setFilteredSchedules(
+          secondFormatDataArray.filter((schedule) => {
+            const isSingleDayEvent = moment(schedule.startDate).isSame(schedule.endDate, "day"); // 하루 일정인지 확인
+            const isSameDay = moment(date).isSame(schedule.startDate, "day"); // 하루 일정에서 클릭한 날짜와 시작 날짜가 같은지 확인
+            const isWithinRange = moment(date).isBetween(
+              moment(schedule.startDate).startOf("day"),
+              moment(schedule.endDate).endOf("day"),
+              null,
+              "[]",
+            );
+            return isSingleDayEvent ? isSameDay : isWithinRange;
+          }),
+        );
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -111,10 +184,7 @@ const Calendar = () => {
   const handleDayClick = (value) => {
     console.log(value);
     const filter_schedules = schedules.filter(
-      (schedule) =>
-        moment(value).isSame(schedule.startDate, "day") ||
-        moment(value).isSame(schedule.endDate, "day") ||
-        (moment(value).isAfter(schedule.startDate, "day") && moment(value).isBefore(schedule.endDate, "day")),
+      (schedule) => moment(value).isSameOrAfter(schedule.startDate, "day") && moment(value).isSameOrBefore(schedule.endDate, "day"),
     );
 
     setFilteredSchedules(filter_schedules);
@@ -122,7 +192,7 @@ const Calendar = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    setShowCalendarDetails(true); 
+    setShowCalendarDetails(true);
   };
 
   const handleCompleteToggle = async (scheduleId) => {
@@ -171,6 +241,12 @@ const Calendar = () => {
     } catch (error) {
       console.error("일정을 삭제하는 중 오류 발생:", error);
     }
+  };
+
+  const isHoliday = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    const isHoliday = holidays.includes(formattedDate);
+    return isHoliday;
   };
 
   const saveSchedule = async (colorIndex, title, startDate, endDate, notificationInterval) => {
@@ -240,6 +316,10 @@ const Calendar = () => {
               setShowCalendarDetails(false); // Hide details when navigating between months
             }}
             onClickDay={handleDayClick}
+            tileClassName={({ date, view }) => {
+              const isHolidayDate = isHoliday(date);
+              return view === "month" && isHolidayDate ? "holiday" : null;
+            }}
             tileContent={({ date }) => {
               const matchingSchedules = schedules.filter((schedule) =>
                 moment(date).isBetween(schedule.startDate, schedule.endDate, "day", "[]"),
@@ -258,9 +338,9 @@ const Calendar = () => {
           />
         </StyledCalendarWrapper>
       </Container>
-      {showCalendarDetails && ( 
-        <div style={{ backgroundColor: "#e9f2ff", height: "270px", overflowY: "auto" }}>
-          <DetailContainer style={{ marginBottom: isMobile ? "50px" : 0 }}>
+      {showCalendarDetails && (
+        <div style={{ backgroundColor: "#e9f2ff", height: "330px", overflowY: "auto" }}>
+          <DetailContainer style={{ marginBottom: isMobile ? "auto" : 0 }}>
             {filteredSchedules.length > 0 && (
               <StyledScheduleContainer style={{ marginBottom: "5px" }}>
                 {filteredSchedules.map((schedule, index) => (
@@ -277,7 +357,18 @@ const Calendar = () => {
                           hour12: false,
                         })}`}
                       </span>
-                      <span style={{ width: "100px", marginLeft: "50px" }}>{schedule.title}</span>
+                      <span
+                        style={{
+                          width: isMobile ? "100px" : "200px",
+                          marginLeft: "50px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          display: "inline-block",
+                        }}
+                      >
+                        {schedule.title}
+                      </span>
                     </div>
                     <img
                       src={schedule.isDone ? toggle_on : toggle_off}

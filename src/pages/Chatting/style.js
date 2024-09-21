@@ -4,10 +4,6 @@ export const Container = styled.div`
   padding: 0 4vw;
   box-sizing: border-box;
   height: 100%;
-
-  @media (max-width: 768px) {
-    padding-bottom: 30px;
-  }
 `;
 
 export const ChatScreen = styled.div`
@@ -36,4 +32,8 @@ export const ButtonContainer = styled.div`
   margin-top: 4vh;
   margin-bottom: 4vh;
   gap: 8vw;
+  @media (max-width: 768px) {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 `;

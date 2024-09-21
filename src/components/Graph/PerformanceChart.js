@@ -12,6 +12,9 @@ const Backdrop = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 997;
+  @media (max-width: 768px) {
+    height: 80%;
+  }
 `;
 
 const Modal = styled.div`
