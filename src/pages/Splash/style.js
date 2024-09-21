@@ -66,7 +66,7 @@ export const WelcomeButton = styled.div`
 
   color: #fff;
   font-family: "Noto Sans KR";
-  font-size: 27px;
+  font-size: 1.6875rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -83,7 +83,7 @@ export const WelcomeButton = styled.div`
     width: 60vw;
     color: #fff;
     font-family: "Noto Sans KR";
-    font-size: 18px;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

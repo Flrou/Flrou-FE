@@ -40,7 +40,7 @@ const MyMessageBubble = styled.div`
   text-align: start;
   color: #2c2c2c;
   font-family: Pretendard-Light;
-  font-size: 22px;
+  font-size: 2.5rem;
   font-style: normal;
   font-weight: 500;
   line-height: 1.5;
@@ -54,7 +54,7 @@ const MyMessageBubble = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    font-size: 16px;
+    font-size: 1rem;
     padding: 7px;
   }
 `;

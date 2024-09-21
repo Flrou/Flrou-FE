@@ -12,7 +12,7 @@ const SidebarContainer = styled.div`
   top: 0;
   left: 0;
   height: 100vh;
-  width: 250px;
+  width: 400px;
   background-color: #fefefe;
   z-index: 999;
   transition: transform 0.3s ease-in-out;
@@ -20,6 +20,11 @@ const SidebarContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+    width: 250px;
+  }
 `;
 
 const SidebarContent = styled.div`
@@ -34,7 +39,7 @@ const MenuItem = styled.div`
   margin: 10px 0;
   border-radius: 15px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1.8rem;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition:
@@ -56,10 +61,13 @@ const MenuItem = styled.div`
     width: 24px;
     height: 24px;
   }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const WelcomeMessage = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -75,6 +83,9 @@ const WelcomeMessage = styled.div`
     position: absolute;
     bottom: -10px;
     left: 0;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
   }
 `;
 

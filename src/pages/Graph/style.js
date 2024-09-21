@@ -14,7 +14,7 @@ export const Container = styled.div`
 export const PeriodText = styled.div`
   color: #63a1fd;
   font-family: Pretendard-Light;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -24,9 +24,8 @@ export const PeriodText = styled.div`
   justify-content: center;
   @media screen and (max-width: 768px) {
     width: auto;
-    color: #;
     font-family: Pretend-Light;
-    font-size: #007bff;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -78,7 +77,7 @@ export const CenteredContent = styled.div`
   height: 100%;
   color: #2c2c2c;
   font-family: Pretendard-Light;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;

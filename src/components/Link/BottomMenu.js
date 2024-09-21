@@ -26,7 +26,7 @@ const BottomBarContainer = styled.div`
 const Button = styled(Link)`
   background-color: transparent;
   border: none;
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: bold;
   color: #ffffff;
   cursor: pointer;
@@ -57,7 +57,7 @@ const ChattingButton = styled(Button)`
   text-align: center;
   -webkit-text-stroke-width: 2;
   font-family: Pretendard-Light;
-  font-size: 15px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;

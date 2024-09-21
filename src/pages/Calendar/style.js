@@ -44,10 +44,16 @@ export const StyledCalendarWrapper = styled.div`
     abbr {
       color: #2c2c2c;
       font-family: Pretendard-Light;
-      font-size: 16px;
+      font-size: 2rem;
       font-style: normal;
       font-weight: 400;
       line-height: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .react-calendar__month-view abbr {
+      font-size: 1rem; /* 미디어 쿼리 안에서 abbr의 폰트 크기를 조정 */
     }
   }
 
@@ -60,10 +66,14 @@ export const StyledCalendarWrapper = styled.div`
   .react-calendar__month-view__weekdays abbr {
     color: rgba(44, 44, 44, 0.3);
     font-family: Pretendard-Light;
-    font-size: 20px;
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 200;
     line-height: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   /* 날짜를 일렬로 정렬 */
@@ -93,10 +103,13 @@ export const StyledCalendarWrapper = styled.div`
   .react-calendar__navigation button {
     color: #329cfe;
     font-family: Pretendard-Regular;
-    font-size: 20px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 100;
     line-height: 20px;
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   /* 네비게이션 버튼 컬러 */
@@ -136,11 +149,14 @@ export const StyledCalendarWrapper = styled.div`
     border-radius: 0.8rem;
     color: var(--Main-Font, #2c2c2c);
     font-family: Pretendard-Light;
-    font-size: 18px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 100;
     line-height: 20px;
     padding: 0;
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
   }
   .react-calendar__tile {
     text-align: flex-start;
@@ -174,11 +190,14 @@ export const StyledCalendarWrapper = styled.div`
 
     color: var(--Main-Font, #2c2c2c);
     font-family: Pretendard-Light;
-    font-size: 15px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 100;
     line-height: 20px; /* 111.111% */
     padding: 0;
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 
   /* 오늘 날짜 스타일 적용 */
@@ -215,7 +234,7 @@ export const StyledCalendarWrapper = styled.div`
   @media (max-width: 768px) {
     .react-calendar__tile {
       height: auto; /* 날짜 버튼 상자의 높이를 더 크게 설정 */
-      font-size: 15px; /* 날짜 폰트 크기를 키움 */
+      font-size: 1rem; /* 날짜 폰트 크기를 키움 */
     }
   }
 `;
@@ -251,12 +270,12 @@ export const StyledSchedule = styled.div`
   border-radius: 2px;
   cursor: pointer;
   color: white;
-  height: 15px;
+  height: 20px;
   display: flex;
   align-items: center;
   width: 100%;
   /* 일정 상자 내용에 대한 스타일 */
-  font-size: 15px;
+  font-size: 1.6rem;
   text-overflow: ellipsis; /* 내용이 넘칠 경우 생략 부호(...)로 표시 */
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   overflow: hidden; /* 넘치는 부분 숨김 */
@@ -264,7 +283,7 @@ export const StyledSchedule = styled.div`
 
   @media (max-width: 768px) {
     color: #2c2c2c;
-    font-size: 11px;
+    font-size: 0.6875rem;
     height: 13px;
   }
 `;
@@ -310,7 +329,7 @@ export const StyledScheduleDetail = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
+  font-size: 2rem;
   color: #2c2c2c;
   padding: 10px;
   cursor: pointer;

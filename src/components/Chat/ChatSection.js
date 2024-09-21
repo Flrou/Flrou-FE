@@ -21,7 +21,7 @@ const StyledInput = styled.input`
   padding-left: 30px;
   color: #4e4d4d;
   font-family: Pretendard-Light;
-  font-size: 18px;
+  font-size: 2.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
