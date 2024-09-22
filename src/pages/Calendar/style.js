@@ -311,9 +311,11 @@ export const StyledScheduleContainer = styled.div`
   flex-direction: column;
   z-index: 1;
   width: 80%;
-  justify-content: center;
   margin: auto;
   height: 100%; /* 부모 요소의 높이에 맞게 설정 */
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const StyledScheduleDetail = styled.div`
