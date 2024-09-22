@@ -364,7 +364,6 @@ const Calendar = () => {
                           whiteSpace: "nowrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
-                          display: "inline-block",
                         }}
                       >
                         {schedule.title}
