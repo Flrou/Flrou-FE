@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f2045253.css",
-    "main.js": "/static/js/main.067429c2.js",
+    "main.js": "/static/js/main.8d322fb4.js",
     "static/js/206.b23dd7d5.chunk.js": "/static/js/206.b23dd7d5.chunk.js",
     "static/media/Pretendard-Light.ttf": "/static/media/Pretendard-Light.ae54342c83bcc5345734.ttf",
     "static/media/Pretendard-Regular.ttf": "/static/media/Pretendard-Regular.e134b5961452730e41ec.ttf",
@@ -13,6 +13,6 @@
   },
   "entrypoints": [
     "static/css/main.f2045253.css",
-    "static/js/main.067429c2.js"
+    "static/js/main.8d322fb4.js"
   ]
 }
