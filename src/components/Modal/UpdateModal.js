@@ -19,7 +19,6 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     endDate: "2024-09-25T12:00:00", // 종료 날짜 및 시간
     alarm: 30, // 알림 간격 (분 단위)
   };
-  
 
   const [title, setTitle] = useState(schedule.title);
   const [selectedColor, setSelectedColor] = useState(schedule.color);
@@ -73,7 +72,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     "#f1c0e8",
   ];
 
-  const fontSize = isMobile ? (isPopup ? "15px " : "15px") : "2rem";
+  const fontSize = isMobile ? (isPopup ? "15px " : "15px") : "1.5rem";
 
   const containerStyle = {
     display: "flex",
@@ -202,7 +201,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
             startDate={selectedStartDate}
             endDate={selectedEndDate}
             showTimeInput
-            style={{ width: "70%", padding: "5px", fontSize: "16px" }}
+            style={{ width: "70%", padding: "5px", fontSize: isMobile ? "16px" : "1.5rem" }}
           />
         </div>
         <div style={{ display: "flex", alignItems: "center", width: "100%", marginBottom: "10px" }}>
@@ -216,7 +215,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
             endDate={selectedEndDate}
             minDate={selectedStartDate}
             showTimeInput
-            style={{ width: "70%", padding: "5px", fontSize: "16px" }}
+            style={{ width: "70%", padding: "5px", fontSize: isMobile ? "16px" : "1.5rem" }}
           />
         </div>
       </div>
@@ -228,7 +227,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
               ...ColorContainer,
               background: selectedColor || "#FFF",
               padding: "7px",
-              fontSize: "16px",
+              fontSize: isMobile ? "16px" : "1.5rem",
               width: "100%",
               marginBottom: "0px",
             }}
@@ -268,7 +267,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
         <select
           value={alarm}
           onChange={handleNotificationIntervalChange}
-          style={{ ...ColorContainer, width: "70%", padding: "7px", fontSize: "15px" }}
+          style={{ ...ColorContainer, width: "70%", padding: "7px", fontSize: isMobile ? "16px" : "1.5rem" }}
         >
           <option value={0}>알림 없음</option>
           <option value={15}>15분</option>

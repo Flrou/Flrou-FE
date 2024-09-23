@@ -106,28 +106,27 @@ const Index = () => {
         }
       });
 
-      // fcm device token 요청
-      // const token = await getToken(messaging, {
-      //   vapidKey: process.env.REACT_APP_VAPID_KEY,
-      // });
-      // if (token) {
-      //   // DB에 토큰 저장
-      //   const res = await axios.post(
-      //     "https://api.flrou.site/user/setDeviceToken",
-      //     {
-      //       user_id: response.data.user_id,
-      //       token: token,
-      //     },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       withCredentials: true,
-      //     },
-      //   );
-      //   console.log(res);
-      //   //if (res.data == "success") navigate("/chatting");
-      // }
+      const token = await getToken(messaging, {
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
+      });
+      if (token) {
+        // DB에 토큰 저장
+        const res = await axios.post(
+          "https://api.flrou.site/user/setDeviceToken",
+          {
+            user_id: response.data.user_id,
+            token: token,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          },
+        );
+        console.log(res);
+        if (res.data == "success") navigate("/chatting");
+      }
       navigate("/chatting");
     } catch (error) {
       console.error("로그인 요청 실패:", error);
