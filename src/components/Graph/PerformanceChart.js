@@ -19,6 +19,7 @@ const Backdrop = styled.div`
 
 const Modal = styled.div`
   position: fixed;
+  font-size: 2rem;
   width: 90%;
   max-width: 600px;
   height: auto;
@@ -59,7 +60,7 @@ const StyledImage = styled.img`
 
 const Text = styled.p`
   margin: 10px 0 20px;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   line-height: 1.5;
 `;
 
@@ -71,7 +72,7 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.5rem;
 
   &:hover {
     background-color: ${(props) => (props.warning ? "#c9302c" : "#5079c6")};
@@ -85,13 +86,13 @@ const ToggleContainer = styled.div`
 
 const ToggleButton = styled.button`
   margin: 0 8px;
+  font-size: 1.5rem;
   padding: 8px 16px;
   background-color: ${(props) => (props.active ? (props.warning ? "#c9302c" : "#63a1fd") : props.warning ? "#f5c6c6" : "#ddd")};
   color: ${(props) => (props.active ? "white" : props.warning ? "#d9534f" : "#333")};
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9rem;
 
   &:hover {
     background-color: ${(props) => (props.active ? (props.warning ? "#ac2925" : "#5079c6") : props.warning ? "#f1b0b7" : "#ccc")};
@@ -119,7 +120,7 @@ const WarningMessage = styled.div`
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [notificationTime, setNotificationTime] = useState("00:15");
   const [showWarning, setShowWarning] = useState(false);
   const currentDateMonth = new Date();
