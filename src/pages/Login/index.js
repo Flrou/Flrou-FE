@@ -125,7 +125,7 @@ const Index = () => {
           },
         );
         console.log(res);
-        if (res.data == "success") navigate("/chatting");
+        //if (res.data == "success") navigate("/chatting");
       }
       navigate("/chatting");
     } catch (error) {

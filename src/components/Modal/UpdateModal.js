@@ -26,9 +26,23 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(new Date(schedule.startDate));
   const [selectedEndDate, setSelectedEndDate] = useState(new Date(schedule.endDate));
   const [notificationInterval, setNotificationInterval] = useState(null);
-  const [alarm, setAlarm] = useState(schedule.alarm);
+  const [alarm, setAlarm] = useState(schedule?.alarm || "");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
   const isMobile768 = useIsMobile();
+  const [intervalId, setIntervalId] = useState(null);
+
+  // 알림 간격이 변경될 때마다 alarm 상태를 업데이트하는 useEffect
+  useEffect(() => {
+    if (notificationInterval === "none") {
+      setAlarm("알림 선택 안함");
+    } else {
+      setAlarm(notificationInterval);
+    }
+  }, [notificationInterval]); // notificationInterval이 변경될 때 실행
+
+  const handleNotificationIntervalChange = (e) => {
+    setNotificationInterval(e.target.value); // 드롭다운에서 선택된 값을 상태에 저장
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -160,10 +174,6 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     setDropdownOpen(false);
   };
 
-  const handleNotificationIntervalChange = (event) => {
-    setNotificationInterval(parseInt(event.target.value));
-  };
-
   const getColorIndexByHashCode = (hashCode, colors) => {
     // 해시코드가 배열에 포함되어 있는지 확인
     const index = colors.indexOf(hashCode);
@@ -174,7 +184,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
 
   const handleSave = () => {
     const s_color = getColorIndexByHashCode(selectedColor, colors);
-    onSave(s_color, title, selectedStartDate, selectedEndDate, notificationInterval);
+    onSave(s_color, title, selectedStartDate, selectedEndDate, alarm);
   };
 
   const handleDeleteClick = async () => {
@@ -205,7 +215,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
           />
         </div>
         <div style={{ display: "flex", alignItems: "center", width: "100%", marginBottom: "10px" }}>
-          <p style={{ width: "30%", margin: "0" }}>종료 일시:</p>
+          <p style={{ width: "30%", margin: "0", fontSize: "1.5rem" }}>종료 일시:</p>
           <DatePicker
             selected={selectedEndDate}
             onChange={(date) => setSelectedEndDate(date)}
@@ -264,16 +274,12 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
       </div>
       <div style={{ display: "flex", alignItems: "center", marginBottom: isMobile ? "10px" : "20px" }}>
         <p style={{ width: "30%", margin: "0" }}>알림 설정:</p>
-        <select
-          value={alarm}
-          onChange={handleNotificationIntervalChange}
-          style={{ ...ColorContainer, width: "70%", padding: "7px", fontSize: isMobile ? "16px" : "1.5rem" }}
-        >
-          <option value={0}>알림 없음</option>
-          <option value={15}>15분</option>
-          <option value={30}>30분</option>
-          <option value={45}>45분</option>
-          <option value={60}>1시간</option>
+        <select value={notificationInterval} onChange={handleNotificationIntervalChange}>
+          <option value="none">알림 선택 안함</option>
+          <option value="15">15분 전</option>
+          <option value="30">30분 전</option>
+          <option value="45">45분 전</option>
+          <option value="60">1시간 전</option>
         </select>
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? "10px" : "20px" }}>

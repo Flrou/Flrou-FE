@@ -120,7 +120,7 @@ const WarningMessage = styled.div`
 
 const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, force }) => {
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [notificationTime, setNotificationTime] = useState("00:15");
   const [showWarning, setShowWarning] = useState(false);
   const currentDateMonth = new Date();
