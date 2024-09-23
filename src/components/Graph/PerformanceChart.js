@@ -125,6 +125,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
   const [showWarning, setShowWarning] = useState(false);
   const currentDateMonth = new Date();
   const currentDate = currentDateMonth.getMonth() + 1;
+  const currentDay = currentDate.getDay();
 
   useEffect(() => {
     const generateData = () => {
@@ -175,6 +176,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
           user_id: id,
           cur_year: currentYear,
           cur_month: currentDate,
+          cur_day: currentDay,
           alarm: notificationTime, // 알림 시간 설정
         },
         {
