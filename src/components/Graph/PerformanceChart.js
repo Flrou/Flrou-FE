@@ -125,7 +125,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
   const [showWarning, setShowWarning] = useState(false);
   const currentDateMonth = new Date();
   const currentDate = currentDateMonth.getMonth() + 1;
-  const currentDay = currentDate.getDay();
+  const currentDay = currentDateMonth.getDate();
 
   useEffect(() => {
     const generateData = () => {
