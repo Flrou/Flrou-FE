@@ -134,6 +134,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
         let incompleteRate = 0;
 
         if (isActive === "month") {
+          // 월별 처리 로직
           successCount.forEach((count, index) => {
             const total = count[0] + count[1];
             const completionRate = total === 0 ? 0 : Math.round((count[0] / total) * 100);
@@ -144,7 +145,8 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
               미완료율: incompleteRate,
             });
           });
-        } else {
+        } else if (isActive === "year") {
+          // 연도별 처리 로직 추가
           let totalSuccess = 0;
           let totalCount = 0;
           successCount.forEach((count) => {
@@ -154,7 +156,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
           const completionRate = totalCount === 0 ? 0 : Math.round((totalSuccess / totalCount) * 100);
           incompleteRate = totalCount === 0 ? 0 : 100 - completionRate;
           newData.push({
-            month: `${currentDate}월`,
+            month: `${currentYear}년`, // 연도로 라벨 변경
             완료율: completionRate,
             미완료율: incompleteRate,
           });
@@ -164,6 +166,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
         setShowWarning(incompleteRate >= 50);
       }
     };
+
     generateData();
   }, [isActive, successCount, currentYear, currentDate]);
 
@@ -258,7 +261,7 @@ const PerformanceChart = ({ isActive, successCount, currentYear, date, user_id, 
       {showModal && (
         <Modal warning={showWarning}>
           <Paragraph>
-            {`${currentDate}월의 일정 완료율이 `}
+            {`${currentDate - 1}월의 일정 완료율이 `}
             <BlueText warning={showWarning}>{data.length > 0 ? `${data[0].완료율}%` : "데이터 없음"}</BlueText>
             {`입니다.`}
           </Paragraph>

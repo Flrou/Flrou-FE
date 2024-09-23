@@ -270,12 +270,12 @@ export const StyledSchedule = styled.div`
   border-radius: 2px;
   cursor: pointer;
   color: white;
-  height: 20px;
+  height: 23px;
   display: flex;
   align-items: center;
   width: 100%;
   /* 일정 상자 내용에 대한 스타일 */
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   text-overflow: ellipsis; /* 내용이 넘칠 경우 생략 부호(...)로 표시 */
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   overflow: hidden; /* 넘치는 부분 숨김 */

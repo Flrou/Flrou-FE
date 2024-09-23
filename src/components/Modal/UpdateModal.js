@@ -11,6 +11,16 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
   if (!schedule) return null;
   console.log(schedule);
 
+  const mockSchedule = {
+    id: 1,
+    title: "회의",
+    color: "#ff4d6d", // 색상
+    startDate: "2024-09-25T10:00:00", // 시작 날짜 및 시간
+    endDate: "2024-09-25T12:00:00", // 종료 날짜 및 시간
+    alarm: 30, // 알림 간격 (분 단위)
+  };
+  
+
   const [title, setTitle] = useState(schedule.title);
   const [selectedColor, setSelectedColor] = useState(schedule.color);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -63,7 +73,7 @@ const UpdateModal = ({ schedule, onClose, onSave, onDelete, isPopup }) => {
     "#f1c0e8",
   ];
 
-  const fontSize = isMobile ? (isPopup ? "15px " : "15px") : "16px";
+  const fontSize = isMobile ? (isPopup ? "15px " : "15px") : "2rem";
 
   const containerStyle = {
     display: "flex",
