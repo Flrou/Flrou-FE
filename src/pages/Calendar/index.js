@@ -49,44 +49,7 @@ const Calendar = () => {
   const today = new Date();
   const [date, setDate] = useState(today);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
-  const initialSchedules = [
-    {
-      id: 1,
-      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 0),
-      endDate: "2024-09-08",
-      title: "Morning Meeting",
-      color: "#ff4d6d",
-      isDone: false,
-      alarm: true,
-    },
-    {
-      id: 2,
-      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
-      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 0),
-      title: "Lunch with Team",
-      color: "#72efdd",
-      isDone: false,
-      alarm: true,
-    },
-    {
-      id: 3,
-      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 0),
-      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 17, 0),
-      title: "Project Discussion",
-      color: "#4cc9f0",
-      isDone: false,
-      alarm: true,
-    },
-    {
-      id: 4,
-      startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 10, 0),
-      endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 11, 0),
-      title: "Client Call",
-      color: "#c77dff",
-      isDone: false,
-      alarm: true,
-    },
-  ];
+  const initialSchedules = [];
 
   const [schedules, setSchedules] = useState(initialSchedules);
   const [filteredSchedules, setFilteredSchedules] = useState([]);
