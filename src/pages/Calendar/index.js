@@ -360,7 +360,7 @@ const Calendar = () => {
                       <span
                         style={{
                           width: isMobile ? "100px" : "200px",
-                          marginLeft: "50px",
+                          marginLeft: isMobile ? "10px" : "50px",
                           whiteSpace: "nowrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
